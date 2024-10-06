@@ -49,6 +49,7 @@ PRODUCT_PACKAGES += \
     libstagefright_softomx_plugin.vendor \
 
 # Dolby Props
+TARGET_USES_DOLBY := true
 PRODUCT_VENDOR_PROPERTIES += \
 ro.audio.spatializer_enabled=true \
 ro.vendor.dolby.dax.version=DAX3_3.6.0.12_r1 \
@@ -60,10 +61,10 @@ ro.audio.monitorRotation=true \
 PRODUCT_PACKAGES += \
     RemovePackagesDolby
 
-# DaxUI and daxService
+# XiaomiDolby and daxService
 PRODUCT_PACKAGES += \
-    DaxUI \
-    daxService
+    XiaomiDolby \
+    daxService \
    
 # Dolby Permissions
 PRODUCT_COPY_FILES += \
