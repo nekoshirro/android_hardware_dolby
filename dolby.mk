@@ -106,6 +106,10 @@ PRODUCT_COPY_FILES += \
     $(DOLBY_PATH)/proprietary/vendor/lib64/libspatializerparamstorage.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libspatializerparamstorage.so \
     $(DOLBY_PATH)/proprietary/vendor/lib64/soundfx/libswspatializer.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libswspatializer.so \
     $(DOLBY_PATH)/proprietary/vendor/lib64/soundfx/libdlbvol.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libdlbvol.so \
+    $(DOLBY_PATH)/proprietary/vendor/lib/soundfx/libdlbvol.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libdlbvol.so \
+    $(DOLBY_PATH)/proprietary/vendor/lib/libdlbpreg.so:$(TARGET_COPY_OUT_VENDOR)/lib/libdlbpreg.so \
+    $(DOLBY_PATH)/proprietary/vendor/lib/libspatializerparamstorage.so:$(TARGET_COPY_OUT_VENDOR)/lib/libspatializerparamstorage.so \
+    $(DOLBY_PATH)/proprietary/vendor/lib/soundfx/libswspatializer.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libswspatializer.so \
 
 # LDAC/LHDC Proprietary Blobs
 PRODUCT_COPY_FILES += \
