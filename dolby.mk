@@ -55,7 +55,6 @@ PRODUCT_PACKAGES += \
 # Dolby Props
 TARGET_USES_DOLBY := true
 PRODUCT_VENDOR_PROPERTIES += \
-ro.audio.spatializer_enabled=true \
 ro.vendor.dolby.dax.version=DAX3_3.6.0.12_r1 \
 vendor.audio.dolby.ds2.enabled=true \
 vendor.audio.dolby.ds2.hardbypass=false \
@@ -107,13 +106,9 @@ PRODUCT_COPY_FILES += \
     $(DOLBY_PATH)/proprietary/vendor/lib/soundfx/libswdap.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libswdap.so \
     $(DOLBY_PATH)/proprietary/vendor/lib64/soundfx/libswdap.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libswdap.so \
     $(DOLBY_PATH)/proprietary/vendor/lib64/libdlbpreg.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libdlbpreg.so \
-    $(DOLBY_PATH)/proprietary/vendor/lib64/libspatializerparamstorage.so:$(TARGET_COPY_OUT_VENDOR)/lib64/libspatializerparamstorage.so \
-    $(DOLBY_PATH)/proprietary/vendor/lib64/soundfx/libswspatializer.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libswspatializer.so \
     $(DOLBY_PATH)/proprietary/vendor/lib64/soundfx/libdlbvol.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libdlbvol.so \
     $(DOLBY_PATH)/proprietary/vendor/lib/soundfx/libdlbvol.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libdlbvol.so \
     $(DOLBY_PATH)/proprietary/vendor/lib/libdlbpreg.so:$(TARGET_COPY_OUT_VENDOR)/lib/libdlbpreg.so \
-    $(DOLBY_PATH)/proprietary/vendor/lib/libspatializerparamstorage.so:$(TARGET_COPY_OUT_VENDOR)/lib/libspatializerparamstorage.so \
-    $(DOLBY_PATH)/proprietary/vendor/lib/soundfx/libswspatializer.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libswspatializer.so \
 
 # LDAC/LHDC Proprietary Blobs
 PRODUCT_COPY_FILES += \
