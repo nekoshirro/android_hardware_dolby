@@ -57,3 +57,4 @@ At the end an example commit to properly implement it in your device tree could 
  * [**HELLBOY017**](https://github.com/HELLBOY017)
  * [**adithya2306**](https://github.com/adithya2306)
  * [**johnmart19**](https://github.com/johnmart19)
+ * [**userariii**](https://github.com/userariii)
