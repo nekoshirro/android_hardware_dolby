@@ -61,9 +61,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
        persist.vendor.audio.spatializer.speaker_enabled=true \
 
 # Spatial Audio Proprietary blobs
-PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/proprietary/vendor/lib/soundfx/libspatialaudio.so:$(TARGET_COPY_OUT_VENDOR)/lib/soundfx/libspatialaudio.so \
-    $(DOLBY_PATH)/proprietary/vendor/lib64/soundfx/libspatialaudio.so:$(TARGET_COPY_OUT_VENDOR)/lib64/soundfx/libspatialaudio.so \
+PRODUCT_PACKAGES += \
+    libspatialaudio
 
 # Media (C2)
 PRODUCT_PACKAGES += \
