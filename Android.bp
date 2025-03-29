@@ -420,4 +420,25 @@ cc_prebuilt_library_shared {
 	soc_specific: true,
 }
 
+cc_prebuilt_library_shared {
+	name: "libspatialaudio",
+	owner: "xiaomi",
+	strip: {
+		none: true,
+	},
+	target: {
+		android_arm: {
+			srcs: ["proprietary/vendor/lib/soundfx/libspatialaudio.so"],
+			shared_libs: ["libaudioutils", "libcutils", "liblog", "libc++", "libc", "libm", "libdl", ],
+		},
+		android_arm64: {
+			srcs: ["proprietary/vendor/lib64/soundfx/libspatialaudio.so"],
+			shared_libs: ["libaudioutils", "libcutils", "liblog", "libc++", "libc", "libm", "libdl", ],
+		},
+	},
+	compile_multilib: "both",
+	relative_install_path: "soundfx",
+	prefer: true,
+	soc_specific: true,
+}
 
