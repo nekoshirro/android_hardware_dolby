@@ -43,9 +43,9 @@ The only change done above is changing := symbol to += so that manifest can't be
 
 At the end an example commit to properly implement it in your device tree could be :-
 
-[**1**] https://github.com/Spanish-or-Vanish/android_device_xiaomi_sm8350-common/commit/48a8f0f7536008c7cc3bffcc34fba69d12dcf25d
+[**1**] https://github.com/Spanish-or-Vanish/android_device_xiaomi_sm8350-common/commit/8ece9a976087ed03f1adb447d0ac2a3f5f1a0d3c
 
-[**2**] https://github.com/Spanish-or-Vanish/android_device_xiaomi_sm8350-common/commit/21dd26d97ddd511e52ab59537deea98b86356222
+[**2**] https://github.com/Spanish-or-Vanish/android_device_xiaomi_sm8350-common/commit/f5abe4a589d54d8363b0f3458e09e3c069cf6384
  
 #### Tip pick anyone for Reference:
           https://dumps.tadiphone.dev/dumps/xiaomi/vili/-/blob/missi_phone_global-user-14-UKQ1.231207.002-V816.0.5.0.UKDMIXM-release-keys/aosp-device-tree/proprietary-files.txt#L2072
