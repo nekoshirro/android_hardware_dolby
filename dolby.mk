@@ -47,24 +47,26 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DolbyFrameworksResCommon
 
-# Spatial Audio
+# Dolby Spatial Audio
 PRODUCT_COPY_FILES += \
     $(DOLBY_PATH)/configs/android.hardware.sensor.dynamic.head_tracker.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/android.hardware.sensor.dynamic.head_tracker.xml \
 
-# Spatial Audio: optimize spatializer effect
+# Dolby Spatial Audio: optimize spatializer effect
 PRODUCT_PROPERTY_OVERRIDES += \
        audio.spatializer.effect.util_clamp_min=300
 
-# Spatial Audio: declare use of spatial audio
+# Dolby Spatial Audio: declare use of spatial audio
 PRODUCT_PROPERTY_OVERRIDES += \
        ro.audio.spatializer_enabled=true \
        ro.audio.headtracking_enabled=true \
        ro.audio.spatializer_transaural_enabled_default=false \
        persist.vendor.audio.spatializer.speaker_enabled=true \
 
-# Spatial Audio Proprietary blobs
+# Dolby Spatial Audio Proprietary blobs
 PRODUCT_PACKAGES += \
-    libspatialaudio
+    libspatializerparamstorage \
+    libswspatializer
+    
 
 # Media (C2)
 PRODUCT_PACKAGES += \
@@ -123,27 +125,31 @@ PRODUCT_COPY_FILES += \
 
 # Dolby Proprietary blobs
 PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/proprietary/vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.hardware.dms@2.0-service.rc \
-
-# Codec2 (Dolby)
-PRODUCT_COPY_FILES += \
-    $(DOLBY_PATH)/proprietary/vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.media.c2@1.0-service.rc \
+    $(DOLBY_PATH)/proprietary/vendor/etc/init/vendor.dolby.hardware.dms@2.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.hardware.dms@2.0-service.rc
 
 PRODUCT_PACKAGES += \
     libdapparamstorage \
-    libdlbpreg \
-    vendor.dolby.hardware.dms@2.0 \
     libdlbdsservice \
-    liboem_specific \
+    libdlbpreg \
     vendor.dolby.hardware.dms@2.0-impl \
-    vendor.dolby.hardware.dms@2.0-service \
+    vendor.dolby.hardware.dms@2.0 \
+    vendor.dolby.hardware.dms@2.0-service
+
+# Codec2 (Dolby)
+PRODUCT_COPY_FILES += \
+    $(DOLBY_PATH)/proprietary/vendor/etc/init/vendor.dolby.media.c2@1.0-service.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/vendor.dolby.media.c2@1.0-service.rc
+
+PRODUCT_PACKAGES += \
     libcodec2_soft_ac4dec \
     libcodec2_soft_ddpdec \
-    libcodec2_soft_dolby \
     libcodec2_store_dolby \
     libdeccfg \
-    vendor.dolby.media.c2@1.0-service \
+    vendor.dolby.media.c2@1.0-service
+
+# Dolby SoundFX Blobs
+PRODUCT_PACKAGES += \
     libdlbvol \
-    libswdap \
+    libhwdap \
     libswgamedap \
-    libswvqe \
+    libswvqe
+
