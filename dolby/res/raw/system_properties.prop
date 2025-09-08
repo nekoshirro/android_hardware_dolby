@@ -1,0 +1,19 @@
+# Material 3 Expressive Design System Properties
+# Enable Material 3 Expressive Design for Android 16
+ro.config.is_expressive_design_enabled=true
+
+# Dynamic color theming properties
+ro.config.dynamic_colors_enabled=true
+ro.config.material_you_enabled=true
+
+# Animation and transition properties
+ro.config.expressive_animations_enabled=true
+ro.config.enhanced_ripples_enabled=true
+
+# Typography and visual enhancements
+ro.config.expressive_typography_enabled=true
+ro.config.colorful_icon_backgrounds_enabled=true
+
+# Performance optimizations for expressive design
+ro.config.expressive_animation_scale=1.2
+ro.config.enhanced_transitions_enabled=true

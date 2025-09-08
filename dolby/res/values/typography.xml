@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-25 Paranoid Android
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+
+    <!-- Material 3 Expressive Typography Styles -->
+    <!-- Display Styles - Largest, most impactful text -->
+    <style name="TextAppearance.Dolby.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">57sp</item>
+        <item name="android:lineHeight">64sp</item>
+        <item name="android:letterSpacing">-0.0044</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">400</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.DisplayMedium" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">45sp</item>
+        <item name="android:lineHeight">52sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">400</item>
+    </style>
+    
+    <!-- Headline Styles - Bigger and more impactful for Material 3 Expressive -->
+    <style name="TextAppearance.Dolby.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">36sp</item>
+        <item name="android:lineHeight">44sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:lineHeight">40sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">28sp</item>
+        <item name="android:lineHeight">36sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <!-- Title Styles - Enhanced for better hierarchy -->
+    <style name="TextAppearance.Dolby.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:lineHeight">32sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:letterSpacing">0.0083</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:letterSpacing">0.0063</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <!-- Body Styles - Optimized for readability -->
+    <style name="TextAppearance.Dolby.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:letterSpacing">0.0031</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">400</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.BodyMedium" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:letterSpacing">0.0179</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">400</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.BodySmall" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.0333</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">400</item>
+    </style>
+    
+    <!-- Label Styles - For buttons and interactive elements -->
+    <style name="TextAppearance.Dolby.LabelLarge" parent="TextAppearance.Material3.LabelLarge">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:lineHeight">20sp</item>
+        <item name="android:letterSpacing">0.0063</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.LabelMedium" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.0357</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.LabelSmall" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:lineHeight">16sp</item>
+        <item name="android:letterSpacing">0.0417</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontWeight">500</item>
+    </style>
+    
+    <!-- Preference-specific typography -->
+    <style name="TextAppearance.Dolby.PreferenceTitle" parent="TextAppearance.Dolby.TitleMedium">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.PreferenceSummary" parent="TextAppearance.Dolby.BodyMedium">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.PreferenceCategoryTitle" parent="TextAppearance.Dolby.LabelLarge">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="fontWeight">600</item>
+    </style>
+    
+    <!-- Additional preference-specific typography for Material 3 Expressive -->
+    <style name="TextAppearance.Dolby.PreferenceCaption" parent="TextAppearance.Dolby.BodySmall">
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+        <item name="android:alpha">0.8</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.PreferenceTitleLarge" parent="TextAppearance.Dolby.TitleLarge">
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="fontWeight">600</item>
+    </style>
+    
+    <style name="TextAppearance.Dolby.PreferenceValue" parent="TextAppearance.Dolby.LabelLarge">
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="fontWeight">600</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:lineHeight">24sp</item>
+        <item name="android:letterSpacing">0.0083</item>
+    </style>
+
+</resources>

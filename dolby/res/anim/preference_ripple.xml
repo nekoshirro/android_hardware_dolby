@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-25 Paranoid Android
+     SPDX-License-Identifier: Apache-2.0
+-->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/fast_out_slow_in">
+    
+    <scale
+        android:duration="150"
+        android:fromXScale="1.0"
+        android:fromYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:toXScale="1.02"
+        android:toYScale="1.02" />
+    
+    <scale
+        android:duration="150"
+        android:fromXScale="1.02"
+        android:fromYScale="1.02"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:startOffset="150"
+        android:toXScale="1.0"
+        android:toYScale="1.0" />
+    
+    <alpha
+        android:duration="100"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.8" />
+    
+    <alpha
+        android:duration="200"
+        android:fromAlpha="0.8"
+        android:startOffset="100"
+        android:toAlpha="1.0" />
+        
+</set>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-25 Paranoid Android
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+
+    <!-- Material 3 Expressive Base Theme -->
+    <style name="Theme.Dolby.Material3" parent="Theme.Material3.DayNight">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/md_theme_light_primary</item>
+        <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_light_primaryContainer</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimaryContainer</item>
+        
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/md_theme_light_secondary</item>
+        <item name="colorOnSecondary">@color/md_theme_light_onSecondary</item>
+        <item name="colorSecondaryContainer">@color/md_theme_light_secondaryContainer</item>
+        <item name="colorOnSecondaryContainer">@color/md_theme_light_onSecondaryContainer</item>
+        
+        <!-- Tertiary Colors -->
+        <item name="colorTertiary">@color/md_theme_light_tertiary</item>
+        <item name="colorOnTertiary">@color/md_theme_light_onTertiary</item>
+        <item name="colorTertiaryContainer">@color/md_theme_light_tertiaryContainer</item>
+        <item name="colorOnTertiaryContainer">@color/md_theme_light_onTertiaryContainer</item>
+        
+        <!-- Error Colors -->
+        <item name="colorError">@color/md_theme_light_error</item>
+        <item name="colorErrorContainer">@color/md_theme_light_errorContainer</item>
+        <item name="colorOnError">@color/md_theme_light_onError</item>
+        <item name="colorOnErrorContainer">@color/md_theme_light_onErrorContainer</item>
+        
+        <!-- Background Colors -->
+        <item name="android:colorBackground">@color/md_theme_light_background</item>
+        <item name="colorOnBackground">@color/md_theme_light_onBackground</item>
+        <item name="colorSurface">@color/md_theme_light_surface</item>
+        <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
+        
+        <!-- Surface Variants -->
+        <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_light_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_light_outline</item>
+        <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
+        <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
+        <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+        
+        <!-- Material 3 Expressive Typography -->
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.Dolby.DisplayLarge</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.Dolby.DisplayMedium</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.Dolby.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Dolby.HeadlineMedium</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.Dolby.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Dolby.TitleMedium</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.Dolby.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.Dolby.BodyMedium</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.Dolby.LabelLarge</item>
+        
+        <!-- Material 3 Expressive Shapes -->
+        <item name="shapeAppearanceCornerExtraLarge">@style/ShapeAppearance.Dolby.CornerExtraLarge</item>
+        <item name="shapeAppearanceCornerLarge">@style/ShapeAppearance.Dolby.CornerLarge</item>
+        <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.Dolby.CornerMedium</item>
+        <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.Dolby.CornerSmall</item>
+        
+        <!-- Enhanced Visual Hierarchy -->
+        <item name="android:windowBackground">@color/md_theme_light_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        
+        <!-- Material 3 Expressive Motion -->
+        <item name="motionDurationLong1">@integer/material_motion_duration_long_1</item>
+        <item name="motionDurationMedium1">@integer/material_motion_duration_medium_1</item>
+        <item name="motionEasingStandard">@interpolator/fast_out_slow_in</item>
+    </style>
+    
+    <!-- Settings Activity Theme -->
+    <style name="Theme.Dolby.Settings" parent="Theme.Dolby.Material3">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay.Dolby.Material3</item>
+    </style>
+    
+    <!-- Dynamic Color Theme with Enhanced Visual Hierarchy -->
+    <style name="Theme.Dolby.DynamicColors" parent="Theme.Dolby.Settings">
+        <!-- Primary Colors -->
+        <item name="colorPrimary">@color/dynamic_primary_light</item>
+        <item name="colorOnPrimary">@color/dynamic_on_primary_light</item>
+        <item name="colorPrimaryContainer">@color/dynamic_primary_container_light</item>
+        <item name="colorOnPrimaryContainer">@color/dynamic_on_primary_container_light</item>
+        
+        <!-- Secondary Colors -->
+        <item name="colorSecondary">@color/dynamic_secondary_light</item>
+        <item name="colorOnSecondary">@color/dynamic_on_secondary_light</item>
+        <item name="colorSecondaryContainer">@color/dynamic_secondary_container_light</item>
+        <item name="colorOnSecondaryContainer">@color/dynamic_on_secondary_container_light</item>
+        
+        <!-- Tertiary Colors -->
+        <item name="colorTertiary">@color/dynamic_tertiary_light</item>
+        <item name="colorOnTertiary">@color/dynamic_on_tertiary_light</item>
+        <item name="colorTertiaryContainer">@color/dynamic_tertiary_container_light</item>
+        <item name="colorOnTertiaryContainer">@color/dynamic_on_tertiary_container_light</item>
+        
+        <!-- Surface Colors -->
+        <item name="colorSurface">@color/dynamic_surface_light</item>
+        <item name="colorOnSurface">@color/dynamic_on_surface_light</item>
+        <item name="colorSurfaceVariant">@color/dynamic_surface_variant_light</item>
+        <item name="colorOnSurfaceVariant">@color/dynamic_on_surface_variant_light</item>
+        
+        <!-- Surface Container Colors -->
+        <item name="colorSurfaceContainer">@color/dynamic_surface_container_light</item>
+        <item name="colorSurfaceContainerLow">@color/dynamic_surface_container_low_light</item>
+        <item name="colorSurfaceContainerHigh">@color/dynamic_surface_container_high_light</item>
+        <item name="colorSurfaceContainerHighest">@color/dynamic_surface_container_highest_light</item>
+        
+        <!-- Outline Colors -->
+        <item name="colorOutline">@color/dynamic_outline_light</item>
+        <item name="colorOutlineVariant">@color/dynamic_outline_variant_light</item>
+        
+        <!-- Visual Hierarchy Elevations - Using standard Material 3 elevation -->
+        <item name="android:elevation">0dp</item>
+        
+        <!-- Enhanced Material 3 Expressive Properties -->
+        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+    <!-- Settings Activity Theme -->
+    <style name="Theme.Dolby.SettingsActivity" parent="Theme.Dolby.Material3">
+        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+
+</resources>

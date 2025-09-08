@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-25 Paranoid Android
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+
+    <!-- Material 3 Expressive Preference Theme Overlay -->
+    <style name="PreferenceThemeOverlay.Dolby.Material3" parent="PreferenceThemeOverlay.v14.Material">
+        <!-- Preference styles -->
+        <item name="preferenceStyle">@style/Preference.Dolby.Material3</item>
+        <item name="preferenceInformationStyle">@style/Preference.Dolby.Information.Material3</item>
+        <item name="preferenceCategoryStyle">@style/Preference.Dolby.Category.Material3</item>
+        <item name="preferenceScreenStyle">@style/Preference.Dolby.PreferenceScreen.Material3</item>
+        <item name="switchPreferenceCompatStyle">@style/Preference.Dolby.SwitchPreferenceCompat.Material3</item>
+        <item name="seekBarPreferenceStyle">@style/Preference.Dolby.SeekBarPreference.Material3</item>
+        <item name="dialogPreferenceStyle">@style/Preference.Dolby.DialogPreference.Material3</item>
+        
+        <!-- Enhanced spacing and layout -->
+        <item name="android:listDivider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
+    
+    <!-- Base Preference Style -->
+    <style name="Preference.Dolby.Material3" parent="Preference.Material">
+        <item name="android:layout">@layout/preference_material3_expressive</item>
+        <item name="android:background">@drawable/preference_background_material3</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:minHeight">64dp</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+    </style>
+    
+    <!-- Category Style -->
+    <style name="Preference.Dolby.Category.Material3" parent="Preference.Category.Material">
+        <item name="android:layout">@layout/preference_category_material3_expressive</item>
+        <item name="android:textAppearance">@style/TextAppearance.Dolby.PreferenceCategoryTitle</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">24dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="allowDividerAbove">false</item>
+        <item name="allowDividerBelow">false</item>
+    </style>
+    
+    <!-- Switch Preference Style -->
+    <style name="Preference.Dolby.SwitchPreferenceCompat.Material3" parent="Preference.SwitchPreferenceCompat.Material">
+        <item name="android:layout">@layout/preference_switch_material3_expressive</item>
+        <item name="android:background">@drawable/preference_background_material3</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:minHeight">64dp</item>
+        <item name="switchTextOn">@string/dolby_on</item>
+        <item name="switchTextOff">@string/dolby_off</item>
+    </style>
+    
+    <!-- SeekBar Preference Style -->
+    <style name="Preference.Dolby.SeekBarPreference.Material3" parent="Preference.SeekBarPreference.Material">
+        <item name="android:layout">@layout/preference_seekbar_material3_expressive</item>
+        <item name="android:background">@drawable/preference_background_material3</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:minHeight">72dp</item>
+        <item name="adjustable">true</item>
+        <item name="showSeekBarValue">true</item>
+    </style>
+    
+    <!-- Dialog Preference Style -->
+    <style name="Preference.Dolby.DialogPreference.Material3" parent="Preference.DialogPreference.Material">
+        <item name="android:layout">@layout/preference_material3_expressive</item>
+        <item name="android:background">@drawable/preference_background_material3</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:minHeight">64dp</item>
+        <item name="dialogTitle">%s</item>
+        <item name="positiveButtonText">@android:string/ok</item>
+        <item name="negativeButtonText">@android:string/cancel</item>
+    </style>
+    
+    <!-- Information Preference Style -->
+    <style name="Preference.Dolby.Information.Material3" parent="Preference.Information.Material">
+        <item name="android:layout">@layout/preference_information_material3_expressive</item>
+        <item name="android:background">@drawable/preference_background_material3</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:selectable">false</item>
+    </style>
+    
+    <!-- PreferenceScreen Style -->
+    <style name="Preference.Dolby.PreferenceScreen.Material3" parent="Preference.PreferenceScreen.Material">
+        <item name="android:layout">@layout/preference_material3_expressive</item>
+        <item name="android:background">@drawable/preference_background_material3</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:minHeight">64dp</item>
+    </style>
+    
+    <!-- Main Switch Preference Style -->
+    <style name="Preference.Dolby.MainSwitchPreference.Material3" parent="Preference.Material">
+        <item name="android:layout">@layout/preference_main_switch_material3_expressive</item>
+        <item name="android:background">@drawable/preference_background_material3_primary</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">20dp</item>
+        <item name="android:minHeight">72dp</item>
+    </style>
+
+</resources>

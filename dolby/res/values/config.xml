@@ -11,4 +11,28 @@
     <!-- Whether volume leveler is supported -->
     <bool name="dolby_volume_leveler_supported">true</bool>
 
+    <!-- Enable Material 3 Expressive Design for Android 16 -->
+    <bool name="is_expressive_design_enabled">true</bool>
+    
+    <!-- Enable dynamic color theming -->
+    <bool name="config_enableDynamicColors">true</bool>
+    
+    <!-- Enable Material You color extraction -->
+    <bool name="config_enableMaterialYou">true</bool>
+    
+    <!-- Enable enhanced animations -->
+    <bool name="config_enableExpressiveAnimations">true</bool>
+    
+    <!-- Animation duration multiplier for expressive design -->
+    <fraction name="config_expressiveAnimationScale">1.2</fraction>
+    
+    <!-- Enable colorful app icon backgrounds (Android 16 feature) -->
+    <bool name="config_enableColorfulIconBackgrounds">true</bool>
+    
+    <!-- Enable enhanced ripple effects -->
+    <bool name="config_enableEnhancedRipples">true</bool>
+    
+    <!-- Enable expressive typography scaling -->
+    <bool name="config_enableExpressiveTypography">true</bool>
+
 </resources>

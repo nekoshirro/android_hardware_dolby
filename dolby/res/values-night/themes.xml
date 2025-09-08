@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-25 Paranoid Android
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+
+    <!-- Dark Theme Override for Dynamic Colors -->
+    <style name="Theme.Dolby.DynamicColors" parent="Theme.Dolby.SettingsActivity">
+        <!-- Primary Colors Dark -->
+        <item name="colorPrimary">@color/dynamic_primary_dark</item>
+        <item name="colorOnPrimary">@color/dynamic_on_primary_dark</item>
+        <item name="colorPrimaryContainer">@color/dynamic_primary_container_dark</item>
+        <item name="colorOnPrimaryContainer">@color/dynamic_on_primary_container_dark</item>
+        
+        <!-- Secondary Colors Dark -->
+        <item name="colorSecondary">@color/dynamic_secondary_dark</item>
+        <item name="colorOnSecondary">@color/dynamic_on_secondary_dark</item>
+        <item name="colorSecondaryContainer">@color/dynamic_secondary_container_dark</item>
+        <item name="colorOnSecondaryContainer">@color/dynamic_on_secondary_container_dark</item>
+        
+        <!-- Tertiary Colors Dark -->
+        <item name="colorTertiary">@color/dynamic_tertiary_dark</item>
+        <item name="colorOnTertiary">@color/dynamic_on_tertiary_dark</item>
+        <item name="colorTertiaryContainer">@color/dynamic_tertiary_container_dark</item>
+        <item name="colorOnTertiaryContainer">@color/dynamic_on_tertiary_container_dark</item>
+        
+        <!-- Surface Colors Dark -->
+        <item name="colorSurface">@color/dynamic_surface_dark</item>
+        <item name="colorOnSurface">@color/dynamic_on_surface_dark</item>
+        <item name="colorSurfaceVariant">@color/dynamic_surface_variant_dark</item>
+        <item name="colorOnSurfaceVariant">@color/dynamic_on_surface_variant_dark</item>
+        
+        <!-- Surface Container Colors Dark -->
+        <item name="colorSurfaceContainer">@color/dynamic_surface_container_dark</item>
+        <item name="colorSurfaceContainerLow">@color/dynamic_surface_container_low_dark</item>
+        <item name="colorSurfaceContainerHigh">@color/dynamic_surface_container_high_dark</item>
+        <item name="colorSurfaceContainerHighest">@color/dynamic_surface_container_highest_dark</item>
+        
+        <!-- Outline Colors Dark -->
+        <item name="colorOutline">@color/dynamic_outline_dark</item>
+        <item name="colorOutlineVariant">@color/dynamic_outline_variant_dark</item>
+        
+        <!-- Inverse Colors Dark -->
+        <item name="colorSurfaceInverse">@color/dynamic_surface_inverse_dark</item>
+        <item name="colorOnSurfaceInverse">@color/dynamic_on_surface_inverse_dark</item>
+        <item name="colorPrimaryInverse">@color/dynamic_primary_inverse_dark</item>
+        
+        <!-- Error Colors Dark -->
+        <item name="colorError">@color/dynamic_error_dark</item>
+        <item name="colorOnError">@color/dynamic_on_error_dark</item>
+        <item name="colorErrorContainer">@color/dynamic_error_container_dark</item>
+        <item name="colorOnErrorContainer">@color/dynamic_on_error_container_dark</item>
+        
+        <!-- Enhanced Dark Mode Properties -->
+        <item name="android:windowBackground">?attr/colorSurface</item>
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        
+        <!-- Dark Mode Specific Enhancements -->
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:isLightTheme">false</item>
+    </style>
+
+</resources>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2023-25 Paranoid Android
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources>
+
+    <!-- Dynamic Color Attributes for Material 3 Expressive -->
+    <attr name="colorDynamicPrimary" format="color" />
+    <attr name="colorDynamicOnPrimary" format="color" />
+    <attr name="colorDynamicPrimaryContainer" format="color" />
+    <attr name="colorDynamicOnPrimaryContainer" format="color" />
+    
+    <attr name="colorDynamicSecondary" format="color" />
+    <attr name="colorDynamicOnSecondary" format="color" />
+    <attr name="colorDynamicSecondaryContainer" format="color" />
+    <attr name="colorDynamicOnSecondaryContainer" format="color" />
+    
+    <attr name="colorDynamicTertiary" format="color" />
+    <attr name="colorDynamicOnTertiary" format="color" />
+    <attr name="colorDynamicTertiaryContainer" format="color" />
+    <attr name="colorDynamicOnTertiaryContainer" format="color" />
+    
+    <attr name="colorDynamicError" format="color" />
+    <attr name="colorDynamicOnError" format="color" />
+    <attr name="colorDynamicErrorContainer" format="color" />
+    <attr name="colorDynamicOnErrorContainer" format="color" />
+    
+    <attr name="colorDynamicSurface" format="color" />
+    <attr name="colorDynamicOnSurface" format="color" />
+    <attr name="colorDynamicSurfaceVariant" format="color" />
+    <attr name="colorDynamicOnSurfaceVariant" format="color" />
+    
+    <attr name="colorDynamicOutline" format="color" />
+    <attr name="colorDynamicOutlineVariant" format="color" />
+    <attr name="colorDynamicSurfaceInverse" format="color" />
+    <attr name="colorDynamicOnSurfaceInverse" format="color" />
+    <attr name="colorDynamicPrimaryInverse" format="color" />
+    
+    <!-- Surface Container Colors -->
+    <attr name="colorDynamicSurfaceContainer" format="color" />
+    <attr name="colorDynamicSurfaceContainerLow" format="color" />
+    <attr name="colorDynamicSurfaceContainerHigh" format="color" />
+    <attr name="colorDynamicSurfaceContainerHighest" format="color" />
+    
+    <!-- Visual Hierarchy Attributes -->
+    <attr name="elevationDynamicLevel0" format="dimension" />
+    <attr name="elevationDynamicLevel1" format="dimension" />
+    <attr name="elevationDynamicLevel2" format="dimension" />
+    <attr name="elevationDynamicLevel3" format="dimension" />
+    <attr name="elevationDynamicLevel4" format="dimension" />
+    <attr name="elevationDynamicLevel5" format="dimension" />
+    
+    <!-- Dynamic Color Values -->
+    <color name="dynamic_primary_light">@android:color/system_accent1_600</color>
+    <color name="dynamic_on_primary_light">@android:color/system_accent1_0</color>
+    <color name="dynamic_primary_container_light">@android:color/system_accent1_100</color>
+    <color name="dynamic_on_primary_container_light">@android:color/system_accent1_900</color>
+    
+    <color name="dynamic_secondary_light">@android:color/system_accent2_600</color>
+    <color name="dynamic_on_secondary_light">@android:color/system_accent2_0</color>
+    <color name="dynamic_secondary_container_light">@android:color/system_accent2_100</color>
+    <color name="dynamic_on_secondary_container_light">@android:color/system_accent2_900</color>
+    
+    <color name="dynamic_tertiary_light">@android:color/system_accent3_600</color>
+    <color name="dynamic_on_tertiary_light">@android:color/system_accent3_0</color>
+    <color name="dynamic_tertiary_container_light">@android:color/system_accent3_100</color>
+    <color name="dynamic_on_tertiary_container_light">@android:color/system_accent3_900</color>
+    
+    <color name="dynamic_surface_light">@android:color/system_neutral1_50</color>
+    <color name="dynamic_on_surface_light">@android:color/system_neutral1_900</color>
+    <color name="dynamic_surface_variant_light">@android:color/system_neutral2_100</color>
+    <color name="dynamic_on_surface_variant_light">@android:color/system_neutral2_700</color>
+    
+    <color name="dynamic_outline_light">@android:color/system_neutral2_500</color>
+    <color name="dynamic_outline_variant_light">@android:color/system_neutral2_300</color>
+    
+    <!-- Surface Container Colors Light -->
+    <color name="dynamic_surface_container_light">@android:color/system_neutral1_100</color>
+    <color name="dynamic_surface_container_low_light">@android:color/system_neutral1_50</color>
+    <color name="dynamic_surface_container_high_light">@android:color/system_neutral1_200</color>
+    <color name="dynamic_surface_container_highest_light">@android:color/system_neutral1_300</color>
+    
+    <!-- Elevation Values -->
+    <dimen name="elevation_level0">0dp</dimen>
+    <dimen name="elevation_level1">1dp</dimen>
+    <dimen name="elevation_level2">3dp</dimen>
+    <dimen name="elevation_level3">6dp</dimen>
+    <dimen name="elevation_level4">8dp</dimen>
+    <dimen name="elevation_level5">12dp</dimen>
+
+</resources>

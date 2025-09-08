@@ -20,7 +20,7 @@ class DolbySettingsActivity : CollapsingToolbarBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        fragmentManager
+        supportFragmentManager
             .beginTransaction()
             .replace(
                 com.android.settingslib.collapsingtoolbar.R.id.content_frame,
@@ -54,7 +54,9 @@ class DolbySettingsActivity : CollapsingToolbarBaseActivity() {
             .setMessage(R.string.dolby_reset_all_message)
             .setPositiveButton(android.R.string.yes) { _, _ ->
                 dolbyController.resetAllProfiles()
-                recreate()
+                // Refresh the fragment's UI state instead of recreating the entire activity
+                val fragment = supportFragmentManager.findFragmentByTag(TAG) as? DolbySettingsFragment
+                fragment?.refreshUIAfterReset()
                 Toast.makeText(this, getString(R.string.dolby_reset_all_toast), Toast.LENGTH_SHORT)
                     .show()
             }

@@ -11,7 +11,9 @@
     <com.android.settingslib.widget.MainSwitchPreference
         android:defaultValue="true"
         android:key="dolby_enable"
-        android:title="@string/dolby_enable" />
+        android:title="@string/dolby_enable"
+        android:layout="@layout/preference_main_switch_material3_expressive"
+        android:icon="@drawable/ic_dolby" />
 
     <ListPreference
         android:key="dolby_profile"
@@ -21,16 +23,20 @@
         android:defaultValue="0"
         android:title="@string/dolby_profile_title"
         android:summary="%s"
-        android:icon="@drawable/ic_dolby" />
+        android:icon="@drawable/ic_dolby"
+        android:layout="@layout/preference_material3_expressive" />
 
     <PreferenceCategory
         android:key="dolby_category_settings"
         android:title="@string/dolby_category_settings"
-        android:dependency="dolby_enable">
+        android:dependency="dolby_enable"
+        android:layout="@layout/preference_category_material3_expressive">
 
         <Preference
             android:key="dolby_preset"
-            android:title="@string/dolby_preset">
+            android:title="@string/dolby_preset"
+            android:layout="@layout/preference_material3_expressive"
+            android:icon="@drawable/ic_ieq_balanced">
             <intent
                 android:action="android.intent.action.MAIN"
                 android:targetPackage="co.aospa.dolby.xiaomi"
@@ -39,56 +45,67 @@
 
         <SwitchPreferenceCompat
             android:key="dolby_bass"
-            android:title="@string/dolby_bass_enhancer" />
+            android:title="@string/dolby_bass_enhancer"
+            android:layout="@layout/preference_switch_material3_expressive" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
         android:key="dolby_category_adv_settings"
         android:title="@string/dolby_category_adv_settings"
-        android:dependency="dolby_enable">
+        android:dependency="dolby_enable"
+        android:layout="@layout/preference_category_material3_expressive">
 
         <co.aospa.dolby.xiaomi.preference.DolbyIeqPreference
             android:key="dolby_ieq"
             android:entries="@array/dolby_ieq_entries"
             android:entryValues="@array/dolby_ieq_values"
-            android:title="@string/dolby_ieq" />
+            android:title="@string/dolby_ieq"
+            android:layout="@layout/preference_material3_expressive"
+            android:icon="@drawable/ic_ieq_detailed" />
 
         <SwitchPreferenceCompat
             android:key="dolby_spk_virtualizer"
-            android:title="@string/dolby_spk_virtualizer" />
+            android:title="@string/dolby_spk_virtualizer"
+            android:layout="@layout/preference_switch_material3_expressive" />
 
         <SwitchPreferenceCompat
             android:key="dolby_virtualizer"
-            android:title="@string/dolby_hp_virtualizer" />
+            android:title="@string/dolby_hp_virtualizer"
+            android:layout="@layout/preference_switch_material3_expressive" />
 
-        <SeekBarPreference
+        <co.aospa.dolby.xiaomi.preference.DolbySeekBarPreference
             android:key="dolby_stereo_widening"
             android:title="@string/dolby_strength"
             android:dependency="dolby_virtualizer"
             android:min="@integer/stereo_widening_min"
-            android:max="@integer/stereo_widening_max"/>
+            android:max="@integer/stereo_widening_max"
+            android:layout="@layout/preference_seekbar_material3_expressive" />
 
         <SwitchPreferenceCompat
             android:key="dolby_dialogue_enabled"
-            android:title="@string/dolby_dialogue_enhancer" />
+            android:title="@string/dolby_dialogue_enhancer"
+            android:layout="@layout/preference_switch_material3_expressive" />
 
-        <SeekBarPreference
+        <co.aospa.dolby.xiaomi.preference.DolbySeekBarPreference
             android:key="dolby_dialogue_amount"
             android:title="@string/dolby_strength"
             android:dependency="dolby_dialogue_enabled"
             android:min="@integer/dialogue_enhancer_min"
-            android:max="@integer/dialogue_enhancer_max"/>
+            android:max="@integer/dialogue_enhancer_max"
+            android:layout="@layout/preference_seekbar_material3_expressive" />
 
         <SwitchPreferenceCompat
             android:key="dolby_volume"
-            android:title="@string/dolby_volume_leveler" />
+            android:title="@string/dolby_volume_leveler"
+            android:layout="@layout/preference_switch_material3_expressive" />
 
     </PreferenceCategory>
 
     <com.android.settingslib.widget.FooterPreference
         android:key="dolby_adv_settings_footer"
         android:title="@string/dolby_adv_settings_footer"
-        android:selectable="false" />
+        android:selectable="false"
+        android:layout="@layout/preference_information_material3_expressive" />
 
 </PreferenceScreen>
