@@ -6,6 +6,14 @@ init_daemon_domain(hal_dms_default)
 
 allow hal_dms_default vendor_data_file:file { rw_file_perms create unlink };
 allow hal_dms_default vendor_data_file:dir { rw_file_perms add_name remove_name };
-allow hal_dms_default mediacodec:binder call;
+# allow hal_dms_default property_socket:sock_file write;
+
+binder_call(hal_dms_default, priv_app)
+binder_call(hal_dms_default, mediacodec)
 binder_call(hal_dms_default, hal_audio_default)
 binder_call(hal_dms_default, platform_app)
+
+set_prop(hal_dms_default, vendor_dolby_prop)
+get_prop(hal_dms_default, vendor_audio_prop)
+get_prop(hal_dms_default, vendor_default_prop)
+
