@@ -10,6 +10,7 @@ android_app {
     srcs: ["src/**/*.java"],
     platform_apis: true,
     privileged: true,
+    privapp_allowlist: "privapp-permissions-dspvolume.xml",
     system_ext_specific: true,
     static_libs: [
         "androidx.core_core",
@@ -17,18 +18,9 @@ android_app {
     ],
 
     required: [
-        "privapp-permissions-dspvolume",
         "config-dspvolume",
         "preinstalled-packages-platform-dspvolume",
     ],
-}
-
-prebuilt_etc {
-    name: "privapp-permissions-dspvolume",
-    relative_install_path: "permissions",
-    src: "privapp-permissions-dspvolume.xml",
-    system_ext_specific: true,
-    filename_from_src: true,
 }
 
 prebuilt_etc {
