@@ -12,8 +12,6 @@ import android.media.AudioDeviceInfo
 import android.media.AudioManager
 import android.os.Bundle
 import android.os.Handler
-import android.widget.CompoundButton
-import android.widget.CompoundButton.OnCheckedChangeListener
 import android.widget.Toast
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -38,7 +36,7 @@ import co.aospa.dolby.R
 import com.android.settingslib.widget.MainSwitchPreference
 
 class DolbySettingsFragment : PreferenceFragmentCompat(),
-    OnPreferenceChangeListener, CompoundButton.OnCheckedChangeListener {
+    OnPreferenceChangeListener {
 
     private val switchBar by lazy {
         findPreference<MainSwitchPreference>(PREF_ENABLE)!!
@@ -109,7 +107,7 @@ class DolbySettingsFragment : PreferenceFragmentCompat(),
         setPreferencesFromResource(R.xml.dolby_settings, rootKey)
 
         val dsOn = dolbyController.dsOn
-        switchBar.addOnSwitchChangeListener(this)
+        switchBar.onPreferenceChangeListener = this
         switchBar.setChecked(dsOn)
 
         profilePref.onPreferenceChangeListener = this
@@ -161,6 +159,13 @@ class DolbySettingsFragment : PreferenceFragmentCompat(),
     override fun onPreferenceChange(preference: Preference, newValue: Any): Boolean {
         dlog(TAG, "onPreferenceChange: key=${preference.key} value=$newValue")
         when (preference.key) {
+            PREF_ENABLE -> {
+                val isChecked = newValue as Boolean
+                dlog(TAG, "PREF_ENABLE -> $isChecked")
+                dolbyController.dsOn = isChecked
+                profilePref.setEnabled(isChecked)
+                updateProfileSpecificPrefs()
+            }
             PREF_PROFILE -> {
                 val profile = newValue.toString().toInt()
                 dolbyController.profile = profile
@@ -199,13 +204,6 @@ class DolbySettingsFragment : PreferenceFragmentCompat(),
             else -> return false
         }
         return true
-    }
-
-    override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
-        dlog(TAG, "onCheckedChanged($isChecked)")
-        dolbyController.dsOn = isChecked
-        profilePref.setEnabled(isChecked)
-        updateProfileSpecificPrefs()
     }
 
     private fun updateSpeakerState() {
