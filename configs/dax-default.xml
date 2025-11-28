@@ -1423,7 +1423,7 @@
         <band_optimizer frequency="7125" gain_left="0" gain_right="0"/>
         <band_optimizer frequency="9000" gain_left="0" gain_right="0"/>
         <band_optimizer frequency="11250" gain_left="0" gain_right="0"/>
-        <band_optimizer frequency="13875" gain_eft="0" gain_right="0"/>
+        <band_optimizer frequency="13875" gain_left="0" gain_right="0"/>
         <band_optimizer frequency="19688" gain_left="0" gain_right="0"/>
       </audio-optimizer-bands>
       <regulator-tuning>
@@ -1561,7 +1561,7 @@
       <virtual-bass-mode value="3"/>
       <virtual-bass-overall-gain value="0"/>
       <virtual-bass-slope-gain value="0"/>
-      <virtual-bs-mix-freqs frequency_low="99" frequency_high="281"/>
+      <virtual-bass-mix-freqs frequency_low="99" frequency_high="281"/>
       <virtual-bass-src-freqs frequency_low="30" frequency_high="90"/>
       <virtual-bass-subgains harmonic_2="-48" harmonic_3="-480" harmonic_4="-240"/>
       <virtualizer-front-speaker-angle value="10"/>
