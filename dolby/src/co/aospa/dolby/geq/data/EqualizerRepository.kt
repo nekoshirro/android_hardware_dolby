@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-package co.aospa.dolby.xiaomi.geq.data
+package co.aospa.dolby.geq.data
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import co.aospa.dolby.xiaomi.DolbyConstants.Companion.PREF_PRESET
-import co.aospa.dolby.xiaomi.DolbyConstants.Companion.dlog
-import co.aospa.dolby.xiaomi.DolbyController
-import co.aospa.dolby.xiaomi.R
+import co.aospa.dolby.DolbyConstants.Companion.PREF_PRESET
+import co.aospa.dolby.DolbyConstants.Companion.dlog
+import co.aospa.dolby.DolbyController
+import co.aospa.dolby.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow

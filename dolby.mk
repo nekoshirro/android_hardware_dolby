@@ -101,9 +101,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     DSPVolumeSynchronizer
 
-# XiaomiDolby
+# DolbyAtmos
 PRODUCT_PACKAGES += \
-    XiaomiDolby
+    DolbyAtmos
 
 # Dolby Proprietary blobs
 PRODUCT_COPY_FILES += \
