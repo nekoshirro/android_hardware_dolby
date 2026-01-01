@@ -88,6 +88,38 @@ class DolbyRepository(private val context: Context) {
         return prefs.getInt(DolbyConstants.PREF_BASS_LEVEL, 0)
     }
 
+    fun getBassCurve(profile: Int): Int {
+        val prefs = getProfilePrefs(profile)
+        return prefs.getInt(DolbyConstants.PREF_BASS_CURVE, 0)
+    }
+
+    fun setBassCurve(profile: Int, curve: Int) {
+        val prefs = getProfilePrefs(profile)
+        val previousCurve = prefs.getInt(DolbyConstants.PREF_BASS_CURVE, 0)
+        val level = prefs.getInt(DolbyConstants.PREF_BASS_LEVEL, 0)
+        if (previousCurve == curve) return
+
+        prefs.edit().putInt(DolbyConstants.PREF_BASS_CURVE, curve).apply()
+
+        if (level <= 0) return
+        checkEffect()
+        val currentGains = dolbyEffect.getDapParameter(DsParam.GEQ_BAND_GAINS, profile)
+        val modifiedGains = currentGains.copyOf()
+        applyBassCurve(modifiedGains, level, previousCurve, -1)
+        applyBassCurve(modifiedGains, level, curve, 1)
+        dolbyEffect.setDapParameter(DsParam.GEQ_BAND_GAINS, modifiedGains, profile)
+    }
+
+    private fun applyBassCurve(gains: IntArray, level: Int, curve: Int, direction: Int) {
+        val weights = BASS_CURVES.getOrElse(curve) { BASS_CURVES[0] }
+        val baseGain = level * 1.4f
+        for (i in weights.indices) {
+            if (i >= gains.size) break
+            val weightedGain = (baseGain * weights[i] * direction).toInt()
+            gains[i] = (gains[i] + weightedGain).coerceIn(-150, 150)
+        }
+    }
+
     fun setBassLevel(profile: Int, level: Int) {
         DolbyConstants.dlog(TAG, "setBassLevel: profile=$profile level=$level")
         
@@ -103,22 +135,13 @@ class DolbyRepository(private val context: Context) {
             val currentGains = dolbyEffect.getDapParameter(DsParam.GEQ_BAND_GAINS, profile)
             val modifiedGains = currentGains.copyOf()
             
+            val curve = prefs.getInt(DolbyConstants.PREF_BASS_CURVE, 0)
             if (previousLevel > 0) {
-                val previousGain = (previousLevel * 1.2f).toInt()
-                for (i in 0..5) {
-                    if (i < modifiedGains.size) {
-                        modifiedGains[i] = (modifiedGains[i] - previousGain).coerceIn(-150, 150)
-                    }
-                }
+                applyBassCurve(modifiedGains, previousLevel, curve, -1)
             }
-            
+
             if (level > 0) {
-                val bassGain = (level * 1.2f).toInt()
-                for (i in 0..5) {
-                    if (i < modifiedGains.size) {
-                        modifiedGains[i] = (modifiedGains[i] + bassGain).coerceIn(-150, 150)
-                    }
-                }
+                applyBassCurve(modifiedGains, level, curve, 1)
             }
             dolbyEffect.setDapParameter(DsParam.GEQ_BAND_GAINS, modifiedGains, profile)
             DolbyConstants.dlog(TAG, "setBassLevel: success")
@@ -366,5 +389,19 @@ class DolbyRepository(private val context: Context) {
             .build()
 
         val BAND_FREQUENCIES = listOf(32, 64, 125, 250, 500, 1000, 2000, 4000, 8000, 16000)
+        private val BASS_CURVES = listOf(
+            floatArrayOf(
+                1.00f, 1.00f, 0.95f, 0.90f, 0.80f, 0.70f, 0.55f, 0.40f, 0.25f, 0.15f,
+                0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f
+            ),
+            floatArrayOf(
+                1.20f, 1.15f, 1.05f, 0.90f, 0.70f, 0.55f, 0.40f, 0.25f, 0.10f, 0.05f,
+                0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f
+            ),
+            floatArrayOf(
+                0.90f, 0.95f, 1.00f, 1.00f, 0.90f, 0.75f, 0.60f, 0.45f, 0.30f, 0.20f,
+                0.10f, 0.05f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f, 0.00f
+            )
+        )
     }
 }

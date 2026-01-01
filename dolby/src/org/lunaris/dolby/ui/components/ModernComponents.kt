@@ -375,6 +375,87 @@ fun ModernSettingSlider(
 }
 
 @Composable
+fun ModernSettingSelector(
+    title: String,
+    currentValue: Int,
+    entries: Int,
+    values: Int,
+    onValueChange: (Int) -> Unit,
+    modifier: Modifier = Modifier,
+    icon: ImageVector? = null
+) {
+    val entryList = stringArrayResource(entries)
+    val valueList = stringArrayResource(values)
+    val currentIndex = valueList.indexOfFirst { it.toIntOrNull() == currentValue }
+    val label = entryList.getOrElse(currentIndex.coerceAtLeast(0)) { "" }
+    var expanded by remember { mutableStateOf(false) }
+
+    Column(modifier = modifier.fillMaxWidth()) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                icon?.let {
+                    Icon(
+                        imageVector = it,
+                        contentDescription = null,
+                        modifier = Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                }
+                Text(
+                    text = title,
+                    style = MaterialTheme.typography.bodyLarge,
+                    fontWeight = FontWeight.Medium
+                )
+            }
+            Box {
+                Surface(
+                    onClick = { expanded = true },
+                    shape = RoundedCornerShape(10.dp),
+                    color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = label,
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Icon(
+                            imageVector = Icons.Default.ArrowDropDown,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false }
+                ) {
+                    entryList.forEachIndexed { index, entry ->
+                        val value = valueList.getOrNull(index)?.toIntOrNull() ?: return@forEachIndexed
+                        DropdownMenuItem(
+                            text = { Text(entry) },
+                            onClick = {
+                                expanded = false
+                                onValueChange(value)
+                            }
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 fun ModernIeqSelector(
     currentPreset: Int,
     onPresetChange: (Int) -> Unit,

@@ -82,4 +82,16 @@
         <item>3</item>
     </string-array>
 
+    <string-array name="dolby_bass_curve_entries">
+        <item>@string/dolby_bass_curve_balanced</item>
+        <item>@string/dolby_bass_curve_sub_boost</item>
+        <item>@string/dolby_bass_curve_punch</item>
+    </string-array>
+
+    <string-array name="dolby_bass_curve_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+
 </resources>

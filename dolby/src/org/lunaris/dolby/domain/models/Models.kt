@@ -26,7 +26,8 @@ data class ProfileSettings(
     val dialogueEnhancerEnabled: Boolean = false,
     val dialogueEnhancerAmount: Int = 6,
     val bassLevel: Int = 0,
-    val trebleLevel: Int = 0
+    val trebleLevel: Int = 0,
+    val bassCurve: Int = 0
 )
 
 data class EqualizerPreset(

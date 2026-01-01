@@ -239,6 +239,15 @@ private fun ModernDolbySettingsContent(
                         AnimatedVisibility(visible = state.profileSettings.bassLevel > 0) {
                             Column {
                                 Spacer(modifier = Modifier.height(8.dp))
+                                ModernSettingSelector(
+                                    title = stringResource(R.string.dolby_bass_curve),
+                                    currentValue = state.profileSettings.bassCurve,
+                                    entries = R.array.dolby_bass_curve_entries,
+                                    values = R.array.dolby_bass_curve_values,
+                                    onValueChange = { viewModel.setBassCurve(it) },
+                                    icon = Icons.Default.Equalizer
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
                                 ModernSettingSlider(
                                     title = stringResource(R.string.dolby_bass_level),
                                     value = state.profileSettings.bassLevel,

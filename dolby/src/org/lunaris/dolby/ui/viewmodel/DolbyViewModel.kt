@@ -52,7 +52,8 @@ class DolbyViewModel(application: Application) : AndroidViewModel(application) {
                     dialogueEnhancerEnabled = repository.getDialogueEnhancerEnabled(profile),
                     dialogueEnhancerAmount = repository.getDialogueEnhancerAmount(profile),
                     bassLevel = repository.getBassLevel(profile),
-                    trebleLevel = repository.getTrebleLevel(profile)
+                    trebleLevel = repository.getTrebleLevel(profile),
+                    bassCurve = repository.getBassCurve(profile)
                 )
                 
                 _uiState.value = DolbyUiState.Success(
@@ -93,6 +94,14 @@ class DolbyViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val profile = repository.getCurrentProfile()
             repository.setBassLevel(profile, level)
+            loadSettings()
+        }
+    }
+
+    fun setBassCurve(curve: Int) {
+        viewModelScope.launch {
+            val profile = repository.getCurrentProfile()
+            repository.setBassCurve(profile, curve)
             loadSettings()
         }
     }

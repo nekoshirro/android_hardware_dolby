@@ -22,6 +22,7 @@ object DolbyConstants {
     const val PREF_DIALOGUE_AMOUNT = "dolby_dialogue_amount"
     const val PREF_BASS = "dolby_bass"
     const val PREF_BASS_LEVEL = "dolby_bass_level"
+    const val PREF_BASS_CURVE = "dolby_bass_curve"
     const val PREF_TREBLE = "dolby_treble"
     const val PREF_TREBLE_LEVEL = "dolby_treble_level"
     const val PREF_VOLUME = "dolby_volume"
