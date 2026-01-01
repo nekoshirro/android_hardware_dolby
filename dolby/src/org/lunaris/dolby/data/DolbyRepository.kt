@@ -129,6 +129,61 @@ class DolbyRepository(private val context: Context) {
         }
     }
 
+    fun getTrebleEnhancerEnabled(profile: Int): Boolean {
+        val prefs = getProfilePrefs(profile)
+        return prefs.getBoolean(DolbyConstants.PREF_TREBLE, false)
+    }
+
+    fun setTrebleEnhancerEnabled(profile: Int, enabled: Boolean) {
+        getProfilePrefs(profile).edit().putBoolean(DolbyConstants.PREF_TREBLE, enabled).apply()
+    }
+
+    fun getTrebleLevel(profile: Int): Int {
+        val prefs = getProfilePrefs(profile)
+        return prefs.getInt(DolbyConstants.PREF_TREBLE_LEVEL, 0)
+    }
+
+    fun setTrebleLevel(profile: Int, level: Int) {
+        DolbyConstants.dlog(TAG, "setTrebleLevel: profile=$profile level=$level")
+
+        try {
+            val prefs = getProfilePrefs(profile)
+            val previousLevel = prefs.getInt(DolbyConstants.PREF_TREBLE_LEVEL, 0)
+
+            prefs.edit().putInt(DolbyConstants.PREF_TREBLE_LEVEL, level).apply()
+            setTrebleEnhancerEnabled(profile, level > 0)
+
+            checkEffect()
+            val currentGains = dolbyEffect.getDapParameter(DsParam.GEQ_BAND_GAINS, profile)
+            val modifiedGains = currentGains.copyOf()
+
+            if (previousLevel > 0) {
+                val previousGain = (previousLevel * 1.5f).toInt()
+                for (i in 14..19) {
+                    if (i < modifiedGains.size) {
+                        modifiedGains[i] = (modifiedGains[i] - previousGain).coerceIn(-150, 150)
+                    }
+                }
+            }
+
+            if (level > 0) {
+                val trebleGain = (level * 1.5f).toInt()
+                for (i in 14..19) {
+                    if (i < modifiedGains.size) {
+                        modifiedGains[i] = (modifiedGains[i] + trebleGain).coerceIn(-150, 150)
+                    }
+                }
+            }
+
+            dolbyEffect.setDapParameter(DsParam.GEQ_BAND_GAINS, modifiedGains, profile)
+            DolbyConstants.dlog(TAG, "setTrebleLevel: success")
+        } catch (e: Exception) {
+            DolbyConstants.dlog(TAG, "setTrebleLevel: error - ${e.message}")
+            val prefs = getProfilePrefs(profile)
+            prefs.edit().putInt(DolbyConstants.PREF_TREBLE_LEVEL, 0).apply()
+        }
+    }
+
     fun getVolumeLevelerEnabled(profile: Int): Boolean {
         return dolbyEffect.getDapParameterBool(DsParam.VOLUME_LEVELER_ENABLE, profile)
     }

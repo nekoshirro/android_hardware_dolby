@@ -250,6 +250,37 @@ private fun ModernDolbySettingsContent(
                             }
                         }
                     }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Column {
+                        ModernSettingSwitch(
+                            title = stringResource(R.string.dolby_treble_enhancer),
+                            subtitle = stringResource(R.string.dolby_treble_enhancer_summary),
+                            checked = state.profileSettings.trebleLevel > 0,
+                            onCheckedChange = { enabled ->
+                                if (enabled && state.profileSettings.trebleLevel == 0) {
+                                    viewModel.setTrebleLevel(30)
+                                } else if (!enabled) {
+                                    viewModel.setTrebleLevel(0)
+                                }
+                            },
+                            icon = Icons.Default.GraphicEq
+                        )
+
+                        AnimatedVisibility(visible = state.profileSettings.trebleLevel > 0) {
+                            Column {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                ModernSettingSlider(
+                                    title = stringResource(R.string.dolby_treble_level),
+                                    value = state.profileSettings.trebleLevel,
+                                    onValueChange = { viewModel.setTrebleLevel(it.toInt()) },
+                                    valueRange = 0f..100f,
+                                    steps = 19,
+                                    valueLabel = { "$it%" }
+                                )
+                            }
+                        }
+                    }
                     
                     Spacer(modifier = Modifier.height(8.dp))
                     ModernSettingSwitch(

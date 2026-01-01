@@ -23,11 +23,14 @@
     <string name="dolby_adv_settings_footer">Choose a different profile to show advanced settings.</string>
     <string name="dolby_bass_enhancer">Bass enhancer</string>
     <string name="dolby_bass_level">Bass level</string>
+    <string name="dolby_treble_enhancer">Treble enhancer</string>
+    <string name="dolby_treble_level">Treble level</string>
     <string name="dolby_dialogue_enhancer">Dialogue enhancer</string>
     <string name="dolby_spk_virtualizer">Speaker surround virtualizer</string>
     <string name="dolby_hp_virtualizer">Headphone surround virtualizer</string>
     <string name="dolby_volume_leveler">Volume leveler</string>
     <string name="dolby_bass_enhancer_summary">Enhances low-frequency sounds for deeper bass</string>  
+    <string name="dolby_treble_enhancer_summary">Enhances high-frequency sounds for clearer treble</string>
     <string name="dolby_dialogue_enhancer_summary">Improves clarity of voices and speech</string>  
     <string name="dolby_spk_virtualizer_summary">Creates virtual surround sound on speakers</string>  
     <string name="dolby_hp_virtualizer_summary">Creates virtual surround sound on headphones</string>  
