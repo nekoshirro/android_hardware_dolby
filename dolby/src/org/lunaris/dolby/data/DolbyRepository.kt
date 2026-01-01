@@ -83,6 +83,52 @@ class DolbyRepository(private val context: Context) {
         getProfilePrefs(profile).edit().putBoolean(DolbyConstants.PREF_BASS, enabled).apply()
     }
 
+    fun getBassLevel(profile: Int): Int {
+        val prefs = getProfilePrefs(profile)
+        return prefs.getInt(DolbyConstants.PREF_BASS_LEVEL, 0)
+    }
+
+    fun setBassLevel(profile: Int, level: Int) {
+        DolbyConstants.dlog(TAG, "setBassLevel: profile=$profile level=$level")
+        
+        try {
+            val prefs = getProfilePrefs(profile)
+            val previousLevel = prefs.getInt(DolbyConstants.PREF_BASS_LEVEL, 0)
+            
+            prefs.edit().putInt(DolbyConstants.PREF_BASS_LEVEL, level).apply()
+            
+            setBassEnhancerEnabled(profile, level > 0)
+            
+            checkEffect()
+            val currentGains = dolbyEffect.getDapParameter(DsParam.GEQ_BAND_GAINS, profile)
+            val modifiedGains = currentGains.copyOf()
+            
+            if (previousLevel > 0) {
+                val previousGain = (previousLevel * 1.2f).toInt()
+                for (i in 0..5) {
+                    if (i < modifiedGains.size) {
+                        modifiedGains[i] = (modifiedGains[i] - previousGain).coerceIn(-150, 150)
+                    }
+                }
+            }
+            
+            if (level > 0) {
+                val bassGain = (level * 1.2f).toInt()
+                for (i in 0..5) {
+                    if (i < modifiedGains.size) {
+                        modifiedGains[i] = (modifiedGains[i] + bassGain).coerceIn(-150, 150)
+                    }
+                }
+            }
+            dolbyEffect.setDapParameter(DsParam.GEQ_BAND_GAINS, modifiedGains, profile)
+            DolbyConstants.dlog(TAG, "setBassLevel: success")
+        } catch (e: Exception) {
+            DolbyConstants.dlog(TAG, "setBassLevel: error - ${e.message}")
+            val prefs = getProfilePrefs(profile)
+            prefs.edit().putInt(DolbyConstants.PREF_BASS_LEVEL, 0).apply()
+        }
+    }
+
     fun getVolumeLevelerEnabled(profile: Int): Boolean {
         return dolbyEffect.getDapParameterBool(DsParam.VOLUME_LEVELER_ENABLE, profile)
     }

@@ -50,7 +50,8 @@ class DolbyViewModel(application: Application) : AndroidViewModel(application) {
                     speakerVirtualizerEnabled = repository.getSpeakerVirtualizerEnabled(profile),
                     stereoWideningAmount = repository.getStereoWideningAmount(profile),
                     dialogueEnhancerEnabled = repository.getDialogueEnhancerEnabled(profile),
-                    dialogueEnhancerAmount = repository.getDialogueEnhancerAmount(profile)
+                    dialogueEnhancerAmount = repository.getDialogueEnhancerAmount(profile),
+                    bassLevel = repository.getBassLevel(profile)
                 )
                 
                 _uiState.value = DolbyUiState.Success(
@@ -83,6 +84,14 @@ class DolbyViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             val profile = repository.getCurrentProfile()
             repository.setBassEnhancerEnabled(profile, enabled)
+            loadSettings()
+        }
+    }
+
+    fun setBassLevel(level: Int) {
+        viewModelScope.launch {
+            val profile = repository.getCurrentProfile()
+            repository.setBassLevel(profile, level)
             loadSettings()
         }
     }

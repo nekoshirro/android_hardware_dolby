@@ -24,7 +24,8 @@ data class ProfileSettings(
     val speakerVirtualizerEnabled: Boolean = false,
     val stereoWideningAmount: Int = 32,
     val dialogueEnhancerEnabled: Boolean = false,
-    val dialogueEnhancerAmount: Int = 6
+    val dialogueEnhancerAmount: Int = 6,
+    val bassLevel: Int = 0
 )
 
 data class EqualizerPreset(

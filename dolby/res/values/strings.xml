@@ -22,6 +22,7 @@
     <string name="dolby_category_adv_settings">Advanced settings</string>
     <string name="dolby_adv_settings_footer">Choose a different profile to show advanced settings.</string>
     <string name="dolby_bass_enhancer">Bass enhancer</string>
+    <string name="dolby_bass_level">Bass level</string>
     <string name="dolby_dialogue_enhancer">Dialogue enhancer</string>
     <string name="dolby_spk_virtualizer">Speaker surround virtualizer</string>
     <string name="dolby_hp_virtualizer">Headphone surround virtualizer</string>

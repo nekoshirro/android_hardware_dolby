@@ -221,13 +221,35 @@ private fun ModernDolbySettingsContent(
                         }
                     }
                     
-                    ModernSettingSwitch(
-                        title = stringResource(R.string.dolby_bass_enhancer),
-                        subtitle = stringResource(R.string.dolby_bass_enhancer_summary),
-                        checked = state.settings.bassEnhancerEnabled,
-                        onCheckedChange = { viewModel.setBassEnhancer(it) },
-                        icon = Icons.Default.MusicNote
-                    )
+                    Column {
+                        ModernSettingSwitch(
+                            title = stringResource(R.string.dolby_bass_enhancer),
+                            subtitle = stringResource(R.string.dolby_bass_enhancer_summary),
+                            checked = state.profileSettings.bassLevel > 0,
+                            onCheckedChange = { enabled ->
+                                if (enabled && state.profileSettings.bassLevel == 0) {
+                                    viewModel.setBassLevel(50)
+                                } else if (!enabled) {
+                                    viewModel.setBassLevel(0)
+                                }
+                            },
+                            icon = Icons.Default.MusicNote
+                        )
+                        
+                        AnimatedVisibility(visible = state.profileSettings.bassLevel > 0) {
+                            Column {
+                                Spacer(modifier = Modifier.height(8.dp))
+                                ModernSettingSlider(
+                                    title = stringResource(R.string.dolby_bass_level),
+                                    value = state.profileSettings.bassLevel,
+                                    onValueChange = { viewModel.setBassLevel(it.toInt()) },
+                                    valueRange = 0f..100f,
+                                    steps = 19,
+                                    valueLabel = { "$it%" }
+                                )
+                            }
+                        }
+                    }
                     
                     Spacer(modifier = Modifier.height(8.dp))
                     ModernSettingSwitch(
