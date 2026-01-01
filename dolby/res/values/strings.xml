@@ -58,6 +58,16 @@
     <string name="dolby_preset_country">Country</string>
     <string name="dolby_preset_dance">Dance</string>
     <string name="dolby_preset_metal">Metal</string>
+    <string name="dolby_preset_acoustic">Acoustic</string>
+    <string name="dolby_preset_bass">Bass Boost</string>
+    <string name="dolby_preset_beats">Beats</string>
+    <string name="dolby_preset_clear">Crystal Clear</string>
+    <string name="dolby_preset_deep">Deep</string>
+    <string name="dolby_preset_dubstep">Dubstep</string>
+    <string name="dolby_preset_hardstyle">Hardstyle</string>
+    <string name="dolby_preset_movie">Movie</string>
+    <string name="dolby_preset_rb">R&amp;B</string>
+    <string name="dolby_preset_vocal">Vocal Booster</string>
     <string name="dolby_preset_custom">Custom</string>
 
     <!-- Dolby equalizer UI -->

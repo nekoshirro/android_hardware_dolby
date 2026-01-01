@@ -390,7 +390,7 @@ private fun ModernEqualizerBand(
             onValueChangeFinished = {
                 onGainChange((sliderValue * 10).toInt())
             },
-            valueRange = -10f..10f,
+            valueRange = -15f..15f,
             modifier = Modifier
                 .graphicsLayer {
                     rotationZ = 270f
@@ -462,7 +462,7 @@ private fun FrequencyResponseCurve(
             
             bandGains.forEachIndexed { index, bandGain ->
                 val x = index * stepX
-                val normalizedGain = (bandGain.gain / 20f).coerceIn(-1f, 1f)
+                val normalizedGain = (bandGain.gain / 150f).coerceIn(-1f, 1f)
                 val y = centerY - (normalizedGain * centerY * 0.8f)
                 
                 if (index == 0) {
