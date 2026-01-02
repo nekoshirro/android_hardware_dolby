@@ -147,7 +147,10 @@ fun ModernProfileSelector(
                     color = if (isSelected) 
                         MaterialTheme.colorScheme.primaryContainer
                     else 
-                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                    border = if (isSelected)
+                        BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
+                    else null
                 ) {
                     Row(
                         modifier = Modifier
