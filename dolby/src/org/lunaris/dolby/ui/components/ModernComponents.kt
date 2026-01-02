@@ -108,108 +108,11 @@ fun ModernProfileSelector(
     onProfileChange: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val profiles = stringArrayResource(R.array.dolby_profile_entries)
-    val profileValues = stringArrayResource(R.array.dolby_profile_values)
-    
-    val profileIcons = mapOf(
-        0 to Icons.Default.AutoAwesome,
-        1 to Icons.Default.Movie,
-        2 to Icons.Default.MusicNote,
-        3 to Icons.Default.Tune
+    ProfileCarousel(
+        currentProfile = currentProfile,
+        onProfileChange = onProfileChange,
+        modifier = modifier
     )
-    
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(24.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh
-        )
-    ) {
-        Column(modifier = Modifier.padding(20.dp)) {
-            Text(
-                text = stringResource(R.string.dolby_profile_title),
-                style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-            
-            profiles.forEachIndexed { index, profile ->
-                val profileValue = profileValues[index].toInt()
-                val isSelected = currentProfile == profileValue
-                
-                Surface(
-                    onClick = { onProfileChange(profileValue) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 4.dp)
-                        .height(64.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    color = if (isSelected) 
-                        MaterialTheme.colorScheme.primaryContainer
-                    else 
-                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
-                    border = if (isSelected)
-                        BorderStroke(2.dp, MaterialTheme.colorScheme.primary)
-                    else null
-                ) {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(horizontal = 20.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
-                    ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Surface(
-                                modifier = Modifier.size(40.dp),
-                                shape = RoundedCornerShape(12.dp),
-                                color = if (isSelected)
-                                    MaterialTheme.colorScheme.primary
-                                else
-                                    MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.1f)
-                            ) {
-                                Box(contentAlignment = Alignment.Center) {
-                                    Icon(
-                                        imageVector = profileIcons[profileValue] ?: Icons.Default.Tune,
-                                        contentDescription = null,
-                                        tint = if (isSelected)
-                                            MaterialTheme.colorScheme.onPrimary
-                                        else
-                                            MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.size(24.dp)
-                                    )
-                                }
-                            }
-                            
-                            Spacer(modifier = Modifier.width(16.dp))
-                            
-                            Text(
-                                text = profile,
-                                style = MaterialTheme.typography.titleMedium,
-                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
-                                color = if (isSelected)
-                                    MaterialTheme.colorScheme.onPrimaryContainer
-                                else
-                                    MaterialTheme.colorScheme.onSurface
-                            )
-                        }
-                        
-                        if (isSelected) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.primary,
-                                modifier = Modifier.size(24.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 @Composable
