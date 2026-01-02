@@ -26,11 +26,17 @@
     <string name="dolby_spk_virtualizer">Speaker surround virtualizer</string>
     <string name="dolby_hp_virtualizer">Headphone surround virtualizer</string>
     <string name="dolby_volume_leveler">Volume leveler</string>
+    <string name="dolby_bass_enhancer_summary">Enhances low-frequency sounds for deeper bass</string>  
+    <string name="dolby_dialogue_enhancer_summary">Improves clarity of voices and speech</string>  
+    <string name="dolby_spk_virtualizer_summary">Creates virtual surround sound on speakers</string>  
+    <string name="dolby_hp_virtualizer_summary">Creates virtual surround sound on headphones</string>  
+    <string name="dolby_volume_leveler_summary">Balances volume for a consistent listening experience</string>  
     <string name="dolby_connect_headphones">Connect headphones</string>
     <string name="dolby_reset_all">Reset profiles</string>
     <string name="dolby_reset_all_message">This will reset all profiles to factory defaults.</string>
     <string name="dolby_reset_all_toast">Succesfully reset all profiles</string>
-    <string name="dolby_strength">Strength</string>
+    <string name="dolby_hp_virtualizer_dolby_strength">Surround virtualizer Strength</string>
+    <string name="dolby_dialogue_enhancer_dolby_strength">Dialogue enhancer Strength</string>
 
     <!-- Dolby profiles -->
     <string name="dolby_profile_dynamic">Dynamic</string>
