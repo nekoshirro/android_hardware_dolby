@@ -5,8 +5,10 @@
 
 package org.lunaris.dolby.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,29 +18,47 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.lunaris.dolby.domain.models.BandGain
 import kotlin.math.abs
-import kotlin.math.pow
 
 @Composable
 fun InteractiveFrequencyResponseCurve(
     bandGains: List<BandGain>,
     onBandGainChange: (index: Int, newGain: Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    isActive: Boolean = false
 ) {
     val primaryColor = MaterialTheme.colorScheme.primary
     val surfaceColor = MaterialTheme.colorScheme.surfaceVariant
     val onSurfaceColor = MaterialTheme.colorScheme.onSurface
     val secondaryColor = MaterialTheme.colorScheme.secondary
+    val primaryContainerColor = MaterialTheme.colorScheme.primaryContainer
+    
+    val backgroundColor = if (isActive) {
+        primaryContainerColor
+    } else {
+        surfaceColor.copy(alpha = 0.2f)
+    }
+    
+    val borderColor = if (isActive) {
+        primaryColor
+    } else {
+        Color.Transparent
+    }
+    
+    val borderWidth = if (isActive) 2.dp else 0.dp
     
     var draggedIndex by remember { mutableStateOf<Int?>(null) }
     
@@ -58,7 +78,13 @@ fun InteractiveFrequencyResponseCurve(
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
-                .background(surfaceColor.copy(alpha = 0.2f))
+                .clip(RoundedCornerShape(16.dp))
+                .background(backgroundColor)
+                .border(
+                    width = borderWidth,
+                    color = borderColor,
+                    shape = RoundedCornerShape(16.dp)
+                )
                 .pointerInput(Unit) {
                     detectDragGestures(
                         onDragStart = { offset ->
@@ -111,8 +137,20 @@ fun InteractiveFrequencyResponseCurve(
             val height = size.height
             val centerY = height / 2
             
+            val gridColor = if (isActive) {
+                surfaceColor.copy(alpha = 0.4f)
+            } else {
+                surfaceColor
+            }
+            
+            val gridVerticalColor = if (isActive) {
+                surfaceColor.copy(alpha = 0.3f)
+            } else {
+                surfaceColor.copy(alpha = 0.2f)
+            }
+            
             drawLine(
-                color = surfaceColor,
+                color = gridColor,
                 start = Offset(0f, centerY),
                 end = Offset(width, centerY),
                 strokeWidth = 2f
@@ -121,7 +159,7 @@ fun InteractiveFrequencyResponseCurve(
             for (i in 1..4) {
                 val y = (height / 5) * i
                 drawLine(
-                    color = surfaceColor.copy(alpha = 0.3f),
+                    color = gridColor.copy(alpha = 0.3f),
                     start = Offset(0f, y),
                     end = Offset(width, y),
                     strokeWidth = 1f
@@ -132,7 +170,7 @@ fun InteractiveFrequencyResponseCurve(
             bandGains.forEachIndexed { index, _ ->
                 val x = index * stepX
                 drawLine(
-                    color = surfaceColor.copy(alpha = 0.2f),
+                    color = gridVerticalColor,
                     start = Offset(x, 0f),
                     end = Offset(x, height),
                     strokeWidth = 1f
@@ -166,8 +204,8 @@ fun InteractiveFrequencyResponseCurve(
                 
                 drawPath(
                     path = path,
-                    color = primaryColor,
-                    style = Stroke(width = 4f)
+                    color = if (isActive) primaryColor else primaryColor.copy(alpha = 0.8f),
+                    style = Stroke(width = if (isActive) 5f else 4f)
                 )
                 
                 val fillPath = Path().apply {
@@ -180,10 +218,17 @@ fun InteractiveFrequencyResponseCurve(
                 drawPath(
                     path = fillPath,
                     brush = Brush.verticalGradient(
-                        colors = listOf(
-                            primaryColor.copy(alpha = 0.3f),
-                            primaryColor.copy(alpha = 0.05f)
-                        )
+                        colors = if (isActive) {
+                            listOf(
+                                primaryColor.copy(alpha = 0.4f),
+                                primaryColor.copy(alpha = 0.08f)
+                            )
+                        } else {
+                            listOf(
+                                primaryColor.copy(alpha = 0.3f),
+                                primaryColor.copy(alpha = 0.05f)
+                            )
+                        }
                     )
                 )
                 
@@ -210,7 +255,7 @@ fun InteractiveFrequencyResponseCurve(
                     )
                     
                     drawCircle(
-                        color = primaryColor,
+                        color = if (isActive) primaryColor else primaryColor.copy(alpha = 0.8f),
                         radius = pointRadius - 2f,
                         center = Offset(x, y)
                     )
@@ -233,7 +278,11 @@ fun InteractiveFrequencyResponseCurve(
                         "${bandGain.frequency}"
                     },
                     style = MaterialTheme.typography.labelSmall,
-                    color = onSurfaceColor.copy(alpha = 0.7f),
+                    color = if (isActive) {
+                        onSurfaceColor.copy(alpha = 0.8f)
+                    } else {
+                        onSurfaceColor.copy(alpha = 0.7f)
+                    },
                     fontSize = 10.sp,
                     fontWeight = FontWeight.Medium
                 )
@@ -249,7 +298,11 @@ fun InteractiveFrequencyResponseCurve(
             Text(
                 text = "+15",
                 style = MaterialTheme.typography.labelSmall,
-                color = secondaryColor.copy(alpha = 0.8f),
+                color = if (isActive) {
+                    secondaryColor
+                } else {
+                    secondaryColor.copy(alpha = 0.8f)
+                },
                 fontSize = 10.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(vertical = 4.dp)
@@ -257,14 +310,22 @@ fun InteractiveFrequencyResponseCurve(
             Text(
                 text = "0",
                 style = MaterialTheme.typography.labelSmall,
-                color = secondaryColor.copy(alpha = 0.8f),
+                color = if (isActive) {
+                    secondaryColor
+                } else {
+                    secondaryColor.copy(alpha = 0.8f)
+                },
                 fontSize = 10.sp,
                 fontWeight = FontWeight.SemiBold
             )
             Text(
                 text = "-15",
                 style = MaterialTheme.typography.labelSmall,
-                color = secondaryColor.copy(alpha = 0.8f),
+                color = if (isActive) {
+                    secondaryColor
+                } else {
+                    secondaryColor.copy(alpha = 0.8f)
+                },
                 fontSize = 10.sp,
                 fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(vertical = 4.dp)

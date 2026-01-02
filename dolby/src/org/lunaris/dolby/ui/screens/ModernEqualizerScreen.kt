@@ -8,7 +8,6 @@ package org.lunaris.dolby.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -17,22 +16,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.lunaris.dolby.R
 import org.lunaris.dolby.domain.models.EqualizerUiState
 import org.lunaris.dolby.ui.components.ModernConfirmDialog
 import org.lunaris.dolby.ui.components.InteractiveFrequencyResponseCurve
+import org.lunaris.dolby.ui.components.AnimatedEqualizerIconDynamic
 import org.lunaris.dolby.ui.viewmodel.EqualizerViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModernEqualizerScreen(
     viewModel: EqualizerViewModel,
-    onNavigateBack: () -> Unit
+    navController: NavController
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showSaveDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showResetDialog by remember { mutableStateOf(false) }
+    val currentRoute by navController.currentBackStackEntryFlow.collectAsState(null)
 
     Scaffold(
         topBar = {
@@ -43,11 +45,6 @@ fun ModernEqualizerScreen(
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold
                     ) 
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
-                    }
                 },
                 actions = {
                     IconButton(onClick = { showSaveDialog = true }) {
@@ -68,6 +65,20 @@ fun ModernEqualizerScreen(
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surface
                 )
+            )
+        },
+        bottomBar = {
+            BottomNavigationBar(
+                currentRoute = currentRoute?.destination?.route ?: Screen.Equalizer.route,
+                onNavigate = { route ->
+                    if (currentRoute?.destination?.route != route) {
+                        navController.navigate(route) {
+                            popUpTo(Screen.Settings.route) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                }
             )
         }
     ) { paddingValues ->
@@ -164,6 +175,9 @@ private fun ModernEqualizerContent(
     viewModel: EqualizerViewModel,
     modifier: Modifier = Modifier
 ) {
+    val isFlatPreset = state.currentPreset.name == stringResource(R.string.dolby_preset_default)
+    val isActive = !isFlatPreset
+    
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -214,6 +228,7 @@ private fun ModernEqualizerContent(
                     onBandGainChange = { index, newGain ->
                         viewModel.setBandGain(index, newGain)
                     },
+                    isActive = isActive,
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
@@ -388,4 +403,55 @@ private fun SavePresetDialog(
         },
         shape = RoundedCornerShape(28.dp)
     )
+}
+
+@Composable
+private fun BottomNavigationBar(
+    currentRoute: String,
+    onNavigate: (String) -> Unit
+) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        tonalElevation = 3.dp
+    ) {
+        NavigationBarItem(
+            icon = { 
+                Icon(
+                    Icons.Default.Home,
+                    contentDescription = null
+                )
+            },
+            label = { Text("Home") },
+            selected = currentRoute == Screen.Settings.route,
+            onClick = { onNavigate(Screen.Settings.route) }
+        )
+        
+        NavigationBarItem(
+            icon = { 
+                AnimatedEqualizerIconDynamic(
+                    color = if (currentRoute == Screen.Equalizer.route) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    size = 24.dp
+                )
+            },
+            label = { Text("Equalizer") },
+            selected = currentRoute == Screen.Equalizer.route,
+            onClick = { onNavigate(Screen.Equalizer.route) }
+        )
+        
+        NavigationBarItem(
+            icon = { 
+                Icon(
+                    Icons.Default.Settings,
+                    contentDescription = null
+                )
+            },
+            label = { Text("Advanced") },
+            selected = currentRoute == Screen.Advanced.route,
+            onClick = { onNavigate(Screen.Advanced.route) }
+        )
+    }
 }

@@ -17,19 +17,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import org.lunaris.dolby.R
 import org.lunaris.dolby.domain.models.DolbyUiState
 import org.lunaris.dolby.ui.components.*
-import org.lunaris.dolby.ui.viewmodel.DolbyViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModernDolbySettingsScreen(
-    viewModel: DolbyViewModel,
-    onNavigateToEqualizer: () -> Unit
+    viewModel: org.lunaris.dolby.ui.viewmodel.DolbyViewModel,
+    navController: NavController
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showResetDialog by remember { mutableStateOf(false) }
+    val currentRoute by navController.currentBackStackEntryFlow.collectAsState(null)
 
     Scaffold(
         topBar = {
@@ -55,21 +56,20 @@ fun ModernDolbySettingsScreen(
                 )
             )
         },
-        floatingActionButton = {
+        bottomBar = {
             if (uiState is DolbyUiState.Success) {
-                val state = uiState as DolbyUiState.Success
-                if (state.settings.enabled) {
-                    FloatingActionButton(
-                        onClick = onNavigateToEqualizer,
-                        containerColor = MaterialTheme.colorScheme.primaryContainer,
-                        shape = MaterialTheme.shapes.large
-                    ) {
-                        AnimatedEqualizerIconDynamic(
-                            color = MaterialTheme.colorScheme.onPrimaryContainer,
-                            size = 24.dp
-                        )
+                BottomNavigationBar(
+                    currentRoute = currentRoute?.destination?.route ?: Screen.Settings.route,
+                    onNavigate = { route ->
+                        if (currentRoute?.destination?.route != route) {
+                            navController.navigate(route) {
+                                popUpTo(Screen.Settings.route) { saveState = true }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        }
                     }
-                }
+                )
             }
         }
     ) { paddingValues ->
@@ -98,7 +98,6 @@ fun ModernDolbySettingsScreen(
                 ModernDolbySettingsContent(
                     state = state,
                     viewModel = viewModel,
-                    onNavigateToEqualizer = onNavigateToEqualizer,
                     modifier = Modifier.padding(paddingValues)
                 )
             }
@@ -147,8 +146,7 @@ fun ModernDolbySettingsScreen(
 @Composable
 private fun ModernDolbySettingsContent(
     state: DolbyUiState.Success,
-    viewModel: DolbyViewModel,
-    onNavigateToEqualizer: () -> Unit,
+    viewModel: org.lunaris.dolby.ui.viewmodel.DolbyViewModel,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
@@ -178,235 +176,18 @@ private fun ModernDolbySettingsContent(
 
         item {
             AnimatedVisibility(
-                visible = state.settings.enabled,
+                visible = state.settings.enabled && state.settings.currentProfile != 0,
                 enter = fadeIn() + expandVertically(),
                 exit = fadeOut() + shrinkVertically()
             ) {
                 ModernSettingsCard(
-                    title = stringResource(R.string.dolby_category_settings),
-                    icon = Icons.Default.Tune
+                    title = "Intelligent Equalizer",
+                    icon = Icons.Default.GraphicEq
                 ) {
-                    Surface(
-                        onClick = onNavigateToEqualizer,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 12.dp),
-                        shape = MaterialTheme.shapes.medium,
-                        color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                    ) {
-                        Row(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(16.dp),
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Column(modifier = Modifier.weight(1f)) {
-                                Text(
-                                    text = stringResource(R.string.dolby_preset),
-                                    style = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                                )
-                                Text(
-                                    text = state.currentPresetName,
-                                    style = MaterialTheme.typography.titleMedium,
-                                    fontWeight = FontWeight.SemiBold
-                                )
-                            }
-                            Icon(
-                                imageVector = Icons.Default.ChevronRight,
-                                contentDescription = null,
-                                tint = MaterialTheme.colorScheme.onSurfaceVariant
-                            )
-                        }
-                    }
-                    
-                    Column {
-                        ModernSettingSwitch(
-                            title = stringResource(R.string.dolby_bass_enhancer),
-                            subtitle = stringResource(R.string.dolby_bass_enhancer_summary),
-                            checked = state.profileSettings.bassLevel > 0,
-                            onCheckedChange = { enabled ->
-                                if (enabled && state.profileSettings.bassLevel == 0) {
-                                    viewModel.setBassLevel(50)
-                                } else if (!enabled) {
-                                    viewModel.setBassLevel(0)
-                                }
-                            },
-                            icon = Icons.Default.MusicNote
-                        )
-                        
-                        AnimatedVisibility(visible = state.profileSettings.bassLevel > 0) {
-                            Column {
-                                Spacer(modifier = Modifier.height(8.dp))
-                                ModernSettingSelector(
-                                    title = stringResource(R.string.dolby_bass_curve),
-                                    currentValue = state.profileSettings.bassCurve,
-                                    entries = R.array.dolby_bass_curve_entries,
-                                    values = R.array.dolby_bass_curve_values,
-                                    onValueChange = { viewModel.setBassCurve(it) },
-                                    icon = Icons.Default.Equalizer
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                                ModernSettingSlider(
-                                    title = stringResource(R.string.dolby_bass_level),
-                                    value = state.profileSettings.bassLevel,
-                                    onValueChange = { viewModel.setBassLevel(it.toInt()) },
-                                    valueRange = 0f..100f,
-                                    steps = 19,
-                                    valueLabel = { "$it%" }
-                                )
-                            }
-                        }
-                    }
-
-                    Spacer(modifier = Modifier.height(12.dp))
-                    Column {
-                        ModernSettingSwitch(
-                            title = stringResource(R.string.dolby_treble_enhancer),
-                            subtitle = stringResource(R.string.dolby_treble_enhancer_summary),
-                            checked = state.profileSettings.trebleLevel > 0,
-                            onCheckedChange = { enabled ->
-                                if (enabled && state.profileSettings.trebleLevel == 0) {
-                                    viewModel.setTrebleLevel(30)
-                                } else if (!enabled) {
-                                    viewModel.setTrebleLevel(0)
-                                }
-                            },
-                            icon = Icons.Default.GraphicEq
-                        )
-
-                        AnimatedVisibility(visible = state.profileSettings.trebleLevel > 0) {
-                            Column {
-                                Spacer(modifier = Modifier.height(8.dp))
-                                ModernSettingSlider(
-                                    title = stringResource(R.string.dolby_treble_level),
-                                    value = state.profileSettings.trebleLevel,
-                                    onValueChange = { viewModel.setTrebleLevel(it.toInt()) },
-                                    valueRange = 0f..100f,
-                                    steps = 19,
-                                    valueLabel = { "$it%" }
-                                )
-                            }
-                        }
-                    }
-                    
-                    Spacer(modifier = Modifier.height(8.dp))
-                    ModernSettingSwitch(
-                        title = stringResource(R.string.dolby_volume_leveler),
-                        subtitle = stringResource(R.string.dolby_volume_leveler_summary),
-                        checked = state.settings.volumeLevelerEnabled,
-                        onCheckedChange = { viewModel.setVolumeLeveler(it) },
-                        icon = Icons.Default.BarChart
+                    ModernIeqSelector(
+                        currentPreset = state.profileSettings.ieqPreset,
+                        onPresetChange = { viewModel.setIeqPreset(it) }
                     )
-                }
-            }
-        }
-
-        if (state.settings.currentProfile != 0) {
-            item {
-                AnimatedVisibility(
-                    visible = state.settings.enabled,
-                    enter = fadeIn() + expandVertically(),
-                    exit = fadeOut() + shrinkVertically()
-                ) {
-                    ModernSettingsCard(
-                        title = stringResource(R.string.dolby_category_adv_settings),
-                        icon = Icons.Default.Settings
-                    ) {
-                        ModernIeqSelector(
-                            currentPreset = state.profileSettings.ieqPreset,
-                            onPresetChange = { viewModel.setIeqPreset(it) }
-                        )
-                        
-                        Spacer(modifier = Modifier.height(16.dp))
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                        Spacer(modifier = Modifier.height(16.dp))
-                        
-                        if (state.isOnSpeaker) {
-                            ModernSettingSwitch(
-                                title = stringResource(R.string.dolby_spk_virtualizer),
-                                subtitle = stringResource(R.string.dolby_spk_virtualizer_summary),
-                                checked = state.profileSettings.speakerVirtualizerEnabled,
-                                onCheckedChange = { viewModel.setSpeakerVirtualizer(it) },
-                                icon = Icons.Default.Speaker
-                            )
-                        } else {
-                            ModernSettingSwitch(
-                                title = stringResource(R.string.dolby_hp_virtualizer),
-                                subtitle = stringResource(R.string.dolby_hp_virtualizer_summary),
-                                checked = state.profileSettings.headphoneVirtualizerEnabled,
-                                onCheckedChange = { viewModel.setHeadphoneVirtualizer(it) },
-                                icon = Icons.Default.Headphones
-                            )
-                            
-                            AnimatedVisibility(visible = state.profileSettings.headphoneVirtualizerEnabled) {
-                                Column {
-                                    Spacer(modifier = Modifier.height(16.dp))
-                                    ModernSettingSlider(
-                                        title = stringResource(R.string.dolby_hp_virtualizer_dolby_strength),
-                                        value = state.profileSettings.stereoWideningAmount,
-                                        onValueChange = { viewModel.setStereoWidening(it.toInt()) },
-                                        valueRange = 4f..64f,
-                                        steps = 59
-                                    )
-                                }
-                            }
-                        }
-                        
-                        Spacer(modifier = Modifier.height(16.dp))
-                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-                        Spacer(modifier = Modifier.height(16.dp))
-                        
-                        ModernSettingSwitch(
-                            title = stringResource(R.string.dolby_dialogue_enhancer),
-                            subtitle = stringResource(R.string.dolby_dialogue_enhancer_summary),
-                            checked = state.profileSettings.dialogueEnhancerEnabled,
-                            onCheckedChange = { viewModel.setDialogueEnhancer(it) },
-                            icon = Icons.Default.RecordVoiceOver
-                        )
-                        
-                        AnimatedVisibility(visible = state.profileSettings.dialogueEnhancerEnabled) {
-                            Column {
-                                Spacer(modifier = Modifier.height(16.dp))
-                                ModernSettingSlider(
-                                    title = stringResource(R.string.dolby_dialogue_enhancer_dolby_strength),
-                                    value = state.profileSettings.dialogueEnhancerAmount,
-                                    onValueChange = { viewModel.setDialogueEnhancerAmount(it.toInt()) },
-                                    valueRange = 1f..12f,
-                                    steps = 10
-                                )
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        if (state.settings.currentProfile == 0 && state.settings.enabled) {
-            item {
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.medium,
-                    color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
-                ) {
-                    Row(
-                        modifier = Modifier.padding(16.dp),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Info,
-                            contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSecondaryContainer,
-                            modifier = Modifier.size(20.dp)
-                        )
-                        Spacer(modifier = Modifier.width(12.dp))
-                        Text(
-                            text = stringResource(R.string.dolby_adv_settings_footer),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                    }
                 }
             }
         }
@@ -414,5 +195,56 @@ private fun ModernDolbySettingsContent(
         item {
             Spacer(modifier = Modifier.height(80.dp))
         }
+    }
+}
+
+@Composable
+private fun BottomNavigationBar(
+    currentRoute: String,
+    onNavigate: (String) -> Unit
+) {
+    NavigationBar(
+        containerColor = MaterialTheme.colorScheme.surfaceContainer,
+        tonalElevation = 3.dp
+    ) {
+        NavigationBarItem(
+            icon = { 
+                Icon(
+                    Icons.Default.Home,
+                    contentDescription = null
+                )
+            },
+            label = { Text("Home") },
+            selected = currentRoute == Screen.Settings.route,
+            onClick = { onNavigate(Screen.Settings.route) }
+        )
+        
+        NavigationBarItem(
+            icon = { 
+                AnimatedEqualizerIconDynamic(
+                    color = if (currentRoute == Screen.Equalizer.route) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        MaterialTheme.colorScheme.onSurfaceVariant
+                    },
+                    size = 24.dp
+                )
+            },
+            label = { Text("Equalizer") },
+            selected = currentRoute == Screen.Equalizer.route,
+            onClick = { onNavigate(Screen.Equalizer.route) }
+        )
+        
+        NavigationBarItem(
+            icon = { 
+                Icon(
+                    Icons.Default.Settings,
+                    contentDescription = null
+                )
+            },
+            label = { Text("Advanced") },
+            selected = currentRoute == Screen.Advanced.route,
+            onClick = { onNavigate(Screen.Advanced.route) }
+        )
     }
 }

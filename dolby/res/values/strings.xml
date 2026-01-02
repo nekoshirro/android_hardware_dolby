@@ -18,7 +18,7 @@
     <string name="dolby_max">Max</string>
     <string name="dolby_unknown">Unknown</string>
     <string name="dolby_on_with_profile">On (%1$s)</string>
-    <string name="dolby_category_settings">Settings</string>
+    <string name="dolby_category_settings">Audio tuning</string>
     <string name="dolby_category_adv_settings">Advanced settings</string>
     <string name="dolby_adv_settings_footer">Choose a different profile to show advanced settings.</string>
     <string name="dolby_bass_enhancer">Bass enhancer</string>

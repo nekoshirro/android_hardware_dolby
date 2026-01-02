@@ -15,6 +15,7 @@ import org.lunaris.dolby.ui.viewmodel.EqualizerViewModel
 sealed class Screen(val route: String) {
     object Settings : Screen("settings")
     object Equalizer : Screen("equalizer")
+    object Advanced : Screen("advanced")
 }
 
 @Composable
@@ -31,18 +32,21 @@ fun DolbyNavHost(
         composable(Screen.Settings.route) {
             ModernDolbySettingsScreen(
                 viewModel = dolbyViewModel,
-                onNavigateToEqualizer = {
-                    navController.navigate(Screen.Equalizer.route)
-                }
+                navController = navController
             )
         }
 
         composable(Screen.Equalizer.route) {
             ModernEqualizerScreen(
                 viewModel = equalizerViewModel,
-                onNavigateBack = {
-                    navController.popBackStack()
-                }
+                navController = navController
+            )
+        }
+
+        composable(Screen.Advanced.route) {
+            ModernAdvancedSettingsScreen(
+                viewModel = dolbyViewModel,
+                navController = navController
             )
         }
     }
