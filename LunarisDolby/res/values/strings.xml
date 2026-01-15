@@ -9,7 +9,7 @@
     <string name="dolby_title">Dolby Atmos</string>
     <string name="dolby_enable">Use Dolby Atmos</string>
     <string name="dolby_profile_title">Choose a profile</string>
-    <string name="dolby_preset">Graphic equalizer</string>
+    <string name="dolby_preset">Equalizer</string>
     <string name="dolby_off">Off</string>
     <string name="dolby_on">On</string>
     <string name="dolby_low">Low</string>
