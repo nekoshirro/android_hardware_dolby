@@ -6,7 +6,6 @@
 package org.lunaris.dolby.ui.screens
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -16,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -26,7 +24,7 @@ import org.lunaris.dolby.domain.models.DolbyUiState
 import org.lunaris.dolby.ui.components.*
 import org.lunaris.dolby.ui.viewmodel.DolbyViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ModernAdvancedSettingsScreen(
     viewModel: DolbyViewModel,
@@ -34,9 +32,6 @@ fun ModernAdvancedSettingsScreen(
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val currentRoute by navController.currentBackStackEntryFlow.collectAsState(null)
-    
-    val context = LocalContext.current
-    val backgroundColor = Color(context.getColor(R.color.screen_background))
 
     Scaffold(
         topBar = {
@@ -45,7 +40,8 @@ fun ModernAdvancedSettingsScreen(
                     Text(
                         stringResource(R.string.dolby_category_adv_settings),
                         style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     ) 
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -67,18 +63,17 @@ fun ModernAdvancedSettingsScreen(
                 }
             )
         },
-        containerColor = backgroundColor
+        containerColor = MaterialTheme.colorScheme.surfaceContainer
     ) { paddingValues ->
         when (val state = uiState) {
             is DolbyUiState.Loading -> {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backgroundColor)
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator()
+                    CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                 }
             }
             is DolbyUiState.Success -> {
@@ -86,7 +81,6 @@ fun ModernAdvancedSettingsScreen(
                     state = state,
                     viewModel = viewModel,
                     navController = navController,
-                    backgroundColor = backgroundColor,
                     modifier = Modifier.padding(paddingValues)
                 )
             }
@@ -94,7 +88,6 @@ fun ModernAdvancedSettingsScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backgroundColor)
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
@@ -125,13 +118,10 @@ private fun ModernAdvancedSettingsContent(
     state: DolbyUiState.Success,
     viewModel: DolbyViewModel,
     navController: NavController,
-    backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .background(backgroundColor),
+        modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
@@ -293,7 +283,7 @@ private fun ModernAdvancedSettingsContent(
             item {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.medium,
+                    shape = MaterialTheme.shapes.large,
                     color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
                 ) {
                     Row(
@@ -319,7 +309,7 @@ private fun ModernAdvancedSettingsContent(
             item {
                 Surface(
                     modifier = Modifier.fillMaxWidth(),
-                    shape = MaterialTheme.shapes.medium,
+                    shape = MaterialTheme.shapes.large,
                     color = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.5f)
                 ) {
                     Row(
