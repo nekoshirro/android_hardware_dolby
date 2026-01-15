@@ -7,7 +7,6 @@ package org.lunaris.dolby.ui.screens
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,10 +18,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -35,7 +33,7 @@ import org.lunaris.dolby.domain.models.AppProfileUiState
 import org.lunaris.dolby.ui.components.ModernConfirmDialog
 import org.lunaris.dolby.ui.viewmodel.AppProfileViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun AppProfileScreen(
     viewModel: AppProfileViewModel,
@@ -44,9 +42,6 @@ fun AppProfileScreen(
     val uiState by viewModel.uiState.collectAsState()
     var searchQuery by remember { mutableStateOf("") }
     var showClearAllDialog by remember { mutableStateOf(false) }
-    
-    val context = LocalContext.current
-    val backgroundColor = Color(context.getColor(R.color.screen_background))
 
     Scaffold(
         topBar = {
@@ -55,14 +50,16 @@ fun AppProfileScreen(
                     Text(
                         "Per-App Audio Profiles",
                         style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     ) 
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigateUp() }) {
                         Icon(
                             Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
+                            contentDescription = "Back",
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 },
@@ -71,12 +68,20 @@ fun AppProfileScreen(
                         val state = uiState as AppProfileUiState.Success
                         if (state.appsWithProfiles.isNotEmpty()) {
                             IconButton(onClick = { showClearAllDialog = true }) {
-                                Icon(Icons.Default.ClearAll, contentDescription = "Clear All")
+                                Icon(
+                                    Icons.Default.ClearAll, 
+                                    contentDescription = "Clear All",
+                                    tint = MaterialTheme.colorScheme.error
+                                )
                             }
                         }
                     }
                     IconButton(onClick = { viewModel.loadApps() }) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Refresh")
+                        Icon(
+                            Icons.Default.Refresh, 
+                            contentDescription = "Refresh",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -84,14 +89,13 @@ fun AppProfileScreen(
                 )
             )
         },
-        containerColor = backgroundColor
+        containerColor = MaterialTheme.colorScheme.surfaceContainer
     ) { paddingValues ->
         when (val state = uiState) {
             is AppProfileUiState.Loading -> {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backgroundColor)
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
@@ -99,7 +103,7 @@ fun AppProfileScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                         Text(
                             text = "Loading apps...",
                             style = MaterialTheme.typography.bodyMedium,
@@ -112,14 +116,13 @@ fun AppProfileScreen(
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backgroundColor)
                         .padding(paddingValues)
                 ) {
                     Surface(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(16.dp),
-                        shape = RoundedCornerShape(16.dp),
+                        shape = MaterialTheme.shapes.large,
                         color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                     ) {
                         Row(
@@ -137,13 +140,20 @@ fun AppProfileScreen(
                             TextField(
                                 value = searchQuery,
                                 onValueChange = { searchQuery = it },
-                                placeholder = { Text("Search apps...") },
+                                placeholder = { 
+                                    Text(
+                                        "Search apps...",
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                                    ) 
+                                },
                                 modifier = Modifier.weight(1f),
                                 colors = TextFieldDefaults.colors(
                                     focusedContainerColor = androidx.compose.ui.graphics.Color.Transparent,
                                     unfocusedContainerColor = androidx.compose.ui.graphics.Color.Transparent,
                                     focusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
-                                    unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent
+                                    unfocusedIndicatorColor = androidx.compose.ui.graphics.Color.Transparent,
+                                    focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                                    unfocusedTextColor = MaterialTheme.colorScheme.onSurface
                                 ),
                                 singleLine = true
                             )
@@ -151,7 +161,8 @@ fun AppProfileScreen(
                                 IconButton(onClick = { searchQuery = "" }) {
                                     Icon(
                                         Icons.Default.Clear,
-                                        contentDescription = "Clear search"
+                                        contentDescription = "Clear search",
+                                        tint = MaterialTheme.colorScheme.onSurfaceVariant
                                     )
                                 }
                             }
@@ -211,7 +222,6 @@ fun AppProfileScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backgroundColor)
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
@@ -230,7 +240,10 @@ fun AppProfileScreen(
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.error
                         )
-                        Button(onClick = { viewModel.loadApps() }) {
+                        Button(
+                            onClick = { viewModel.loadApps() },
+                            shape = MaterialTheme.shapes.medium
+                        ) {
                             Text("Retry")
                         }
                     }
@@ -264,12 +277,12 @@ private fun AppProfileItem(
 
     Card(
         modifier = Modifier.fillMaxWidth(),
-        shape = RoundedCornerShape(20.dp),
+        shape = MaterialTheme.shapes.large,
         colors = CardDefaults.cardColors(
             containerColor = if (app.assignedProfile >= 0) {
                 MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.4f)
             } else {
-                MaterialTheme.colorScheme.surfaceContainerHigh
+                MaterialTheme.colorScheme.surfaceBright
             }
         )
     ) {
@@ -285,7 +298,7 @@ private fun AppProfileItem(
                     contentDescription = app.appName,
                     modifier = Modifier
                         .size(48.dp)
-                        .clip(RoundedCornerShape(12.dp))
+                        .clip(MaterialTheme.shapes.medium)
                 )
             }
             Spacer(modifier = Modifier.width(16.dp))
@@ -294,6 +307,7 @@ private fun AppProfileItem(
                     text = app.appName,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -319,7 +333,7 @@ private fun AppProfileItem(
             Box {
                 Surface(
                     onClick = { expanded = true },
-                    shape = RoundedCornerShape(12.dp),
+                    shape = MaterialTheme.shapes.medium,
                     color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
                 ) {
                     Row(
@@ -328,13 +342,15 @@ private fun AppProfileItem(
                     ) {
                         Text(
                             text = "Change",
-                            style = MaterialTheme.typography.labelLarge
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.onSurface
                         )
                         Spacer(modifier = Modifier.width(4.dp))
                         Icon(
                             Icons.Default.ArrowDropDown,
                             contentDescription = null,
-                            modifier = Modifier.size(20.dp)
+                            modifier = Modifier.size(20.dp),
+                            tint = MaterialTheme.colorScheme.onSurface
                         )
                     }
                 }
@@ -350,7 +366,10 @@ private fun AppProfileItem(
                                 horizontalArrangement = Arrangement.SpaceBetween,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                Text("Default")
+                                Text(
+                                    "Default",
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
                                 if (app.assignedProfile == -1) {
                                     Icon(
                                         Icons.Default.Check,
@@ -366,7 +385,7 @@ private fun AppProfileItem(
                             expanded = false
                         }
                     )
-                    Divider()
+                    Divider(color = MaterialTheme.colorScheme.outlineVariant)
                     profiles.forEachIndexed { index, profileName ->
                         val profileValue = profileValues[index].toInt()
                         DropdownMenuItem(
@@ -376,7 +395,10 @@ private fun AppProfileItem(
                                     horizontalArrangement = Arrangement.SpaceBetween,
                                     verticalAlignment = Alignment.CenterVertically
                                 ) {
-                                    Text(profileName)
+                                    Text(
+                                        profileName,
+                                        color = MaterialTheme.colorScheme.onSurface
+                                    )
                                     if (app.assignedProfile == profileValue) {
                                         Icon(
                                             Icons.Default.Check,

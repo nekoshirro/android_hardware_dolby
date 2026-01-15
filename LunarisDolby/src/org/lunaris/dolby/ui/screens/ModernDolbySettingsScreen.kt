@@ -6,7 +6,6 @@
 package org.lunaris.dolby.ui.screens
 
 import androidx.compose.animation.*
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -16,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -25,7 +23,7 @@ import org.lunaris.dolby.R
 import org.lunaris.dolby.domain.models.DolbyUiState
 import org.lunaris.dolby.ui.components.*
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3ExpressiveApi::class)
 @Composable
 fun ModernDolbySettingsScreen(
     viewModel: org.lunaris.dolby.ui.viewmodel.DolbyViewModel,
@@ -34,9 +32,6 @@ fun ModernDolbySettingsScreen(
     val uiState by viewModel.uiState.collectAsState()
     var showResetDialog by remember { mutableStateOf(false) }
     val currentRoute by navController.currentBackStackEntryFlow.collectAsState(null)
-    
-    val context = LocalContext.current
-    val backgroundColor = Color(context.getColor(R.color.screen_background))
 
     Scaffold(
         topBar = {
@@ -45,7 +40,8 @@ fun ModernDolbySettingsScreen(
                     Text(
                         stringResource(R.string.dolby_title),
                         style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onSurface
                     ) 
                 },
                 actions = {
@@ -78,14 +74,13 @@ fun ModernDolbySettingsScreen(
                 )
             }
         },
-        containerColor = backgroundColor
+        containerColor = MaterialTheme.colorScheme.surfaceContainer
     ) { paddingValues ->
         when (val state = uiState) {
             is DolbyUiState.Loading -> {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backgroundColor)
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
@@ -93,7 +88,7 @@ fun ModernDolbySettingsScreen(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        CircularProgressIndicator()
+                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                         Text(
                             text = "Loading...",
                             style = MaterialTheme.typography.bodyMedium,
@@ -106,7 +101,6 @@ fun ModernDolbySettingsScreen(
                 ModernDolbySettingsContent(
                     state = state,
                     viewModel = viewModel,
-                    backgroundColor = backgroundColor,
                     modifier = Modifier.padding(paddingValues)
                 )
             }
@@ -114,7 +108,6 @@ fun ModernDolbySettingsScreen(
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(backgroundColor)
                         .padding(paddingValues),
                     contentAlignment = Alignment.Center
                 ) {
@@ -157,13 +150,10 @@ fun ModernDolbySettingsScreen(
 private fun ModernDolbySettingsContent(
     state: DolbyUiState.Success,
     viewModel: org.lunaris.dolby.ui.viewmodel.DolbyViewModel,
-    backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .background(backgroundColor),
+        modifier = modifier.fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
