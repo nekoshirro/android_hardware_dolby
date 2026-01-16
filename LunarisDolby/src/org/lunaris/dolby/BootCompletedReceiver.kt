@@ -24,16 +24,19 @@ class BootCompletedReceiver : BroadcastReceiver() {
             Intent.ACTION_BOOT_COMPLETED -> {
                 try {
                     val repository = DolbyRepository(context)
-                    val enabled = repository.getDolbyEnabled()
-                    val profile = repository.getCurrentProfile()
+                    val prefs = context.getSharedPreferences("dolby_prefs", Context.MODE_PRIVATE)
+                    val enabled = prefs.getBoolean(DolbyConstants.PREF_ENABLE, false)
+                    val savedProfile = prefs.getString(DolbyConstants.PREF_PROFILE, "0")?.toIntOrNull() ?: 0
+                    
+                    Log.d(TAG, "Boot restore - enabled: $enabled, profile: $savedProfile")
                     
                     if (enabled) {
-                        repository.setCurrentProfile(profile)
-                        restoreProfileSettings(repository, context, profile)
+                        restoreProfileSettings(repository, context, savedProfile)
+                        repository.setCurrentProfile(savedProfile)
                         repository.setDolbyEnabled(true)
+                        Log.d(TAG, "Dolby restored successfully")
                     }
                     
-                    val prefs = context.getSharedPreferences("dolby_prefs", Context.MODE_PRIVATE)
                     if (prefs.getBoolean("app_profile_monitoring_enabled", false)) {
                         AppProfileMonitorService.startMonitoring(context)
                     }
@@ -42,7 +45,6 @@ class BootCompletedReceiver : BroadcastReceiver() {
                         requestNotificationListenerRebind(context)
                     }
                     
-                    Log.d(TAG, "Dolby initialized: enabled=$enabled, profile=$profile")
                 } catch (e: Exception) {
                     Log.e(TAG, "Failed to initialize Dolby", e)
                 }
