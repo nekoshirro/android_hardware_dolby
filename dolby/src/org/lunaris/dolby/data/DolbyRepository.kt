@@ -120,8 +120,12 @@ class DolbyRepository(private val context: Context) : AutoCloseable {
             checkEffect()
             dolbyEffect.profile = profile
             defaultPrefs.edit().putString(DolbyConstants.PREF_PROFILE, profile.toString()).apply()
+            if (!verifyProfileSaved(profile)) {
+                DolbyConstants.dlog(TAG, "WARNING: Profile may not have been saved correctly!")
+            }
             restoreProfilePreset(profile)
             _currentProfile.value = profile
+            DolbyConstants.dlog(TAG, "Profile set to: $profile")
         } catch (e: Exception) {
             DolbyConstants.dlog(TAG, "Error setting current profile: ${e.message}")
         }
@@ -142,6 +146,13 @@ class DolbyRepository(private val context: Context) : AutoCloseable {
         } catch (e: Exception) {
             DolbyConstants.dlog(TAG, "Failed to restore preset for profile $profile: ${e.message}")
         }
+    }
+
+    fun verifyProfileSaved(profile: Int): Boolean {
+        val prefs = defaultPrefs.getString(DolbyConstants.PREF_PROFILE, "0")?.toIntOrNull()
+        val saved = prefs == profile
+        DolbyConstants.dlog(TAG, "Profile verification: requested=$profile, saved=$prefs, match=$saved")
+        return saved
     }
 
     private fun getProfilePrefs(profile: Int): SharedPreferences {
