@@ -19,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import org.lunaris.dolby.R
@@ -73,7 +74,7 @@ fun AppProfileSettingsCard(
                 Spacer(modifier = Modifier.width(12.dp))
                 
                 Text(
-                    text = "Per-App Audio Profiles",
+                    text = stringResource(R.string.app_profiles_title),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -81,7 +82,7 @@ fun AppProfileSettingsCard(
             }
             
             Text(
-                text = "Automatically switch audio profiles based on the active app for optimized sound.",
+                text = stringResource(R.string.app_profiles_desc),
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(bottom = 16.dp)
@@ -93,7 +94,7 @@ fun AppProfileSettingsCard(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "Auto-switch profiles",
+                    text = stringResource(R.string.app_profiles_auto_switch),
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Medium,
                     color = MaterialTheme.colorScheme.onSurface
@@ -203,7 +204,7 @@ fun AppProfileSettingsCard(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Show toasts",
+                            text = stringResource(R.string.app_profiles_show_toasts),
                             style = MaterialTheme.typography.bodyLarge,
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colorScheme.onSurface
@@ -258,7 +259,7 @@ fun AppProfileSettingsCard(
                     modifier = Modifier.size(20.dp)
                 )
                 Spacer(modifier = Modifier.width(8.dp))
-                Text("Manage App Profiles")
+                Text(stringResource(R.string.app_profiles_manage))
             }
         }
     }
@@ -276,7 +277,7 @@ fun AppProfileSettingsCard(
             },
             title = { 
                 Text(
-                    "Permission Required",
+                    stringResource(R.string.app_profiles_permission_required),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -284,7 +285,7 @@ fun AppProfileSettingsCard(
             },
             text = {
                 Text(
-                    "To automatically switch profiles based on the active app, please grant Usage Access permission in the next screen.",
+                    stringResource(R.string.app_profiles_permission_required_details),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -298,7 +299,7 @@ fun AppProfileSettingsCard(
                     },
                     shape = MaterialTheme.shapes.medium
                 ) {
-                    Text("Grant Permission")
+                    Text(stringResource(R.string.app_profiles_grant_permission))
                 }
             },
             dismissButton = {
@@ -306,7 +307,7 @@ fun AppProfileSettingsCard(
                     onClick = { showPermissionDialog = false },
                     shape = MaterialTheme.shapes.medium
                 ) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             },
             shape = MaterialTheme.shapes.extraLarge
