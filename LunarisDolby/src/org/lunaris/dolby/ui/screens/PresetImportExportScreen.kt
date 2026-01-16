@@ -20,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -156,7 +157,7 @@ fun PresetImportExportScreen(
             TopAppBar(
                 title = { 
                     Text(
-                        "Import/Export Presets",
+                        stringResource(R.string.import_export_presets),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -223,14 +224,14 @@ fun PresetImportExportScreen(
                                         }
                                         Spacer(modifier = Modifier.width(12.dp))
                                         Text(
-                                            "Import Presets",
+                                            stringResource(R.string.import_presets),
                                             style = MaterialTheme.typography.titleLarge,
                                             fontWeight = FontWeight.Bold,
                                             color = MaterialTheme.colorScheme.onSurface
                                         )
                                     }
                                     Text(
-                                        "Import presets from files or clipboard",
+                                        stringResource(R.string.import_presets_description),
                                         style = MaterialTheme.typography.bodyMedium,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                                         modifier = Modifier.padding(bottom = 16.dp)
@@ -250,7 +251,7 @@ fun PresetImportExportScreen(
                                         ) {
                                             Icon(Icons.Default.FolderOpen, contentDescription = null)
                                             Spacer(Modifier.width(8.dp))
-                                            Text("Single File")
+                                            Text(stringResource(R.string.import_single_file))
                                         }
                                         Button(
                                             onClick = { batchImportLauncher.launch("*/*") },
@@ -263,7 +264,7 @@ fun PresetImportExportScreen(
                                         ) {
                                             Icon(Icons.Default.FolderCopy, contentDescription = null)
                                             Spacer(Modifier.width(8.dp))
-                                            Text("Batch")
+                                            Text(stringResource(R.string.import_batch))
                                         }
                                     }
                                     Spacer(Modifier.height(8.dp))
@@ -302,14 +303,14 @@ fun PresetImportExportScreen(
                                     ) {
                                         Icon(Icons.Default.ContentPaste, contentDescription = null)
                                         Spacer(Modifier.width(8.dp))
-                                        Text("From Clipboard")
+                                        Text(stringResource(R.string.import_from_clipboard))
                                     }
                                 }
                             }
                         }
                         item {
                             Text(
-                                "Your Custom Presets",
+                                stringResource(R.string.your_custom_presets),
                                 style = MaterialTheme.typography.titleMedium,
                                 fontWeight = FontWeight.Bold,
                                 color = MaterialTheme.colorScheme.onSurface,
@@ -399,7 +400,7 @@ fun PresetImportExportScreen(
                             CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                             Spacer(Modifier.height(16.dp))
                             Text(
-                                "Processing...",
+                                stringResource(R.string.processing),
                                 color = MaterialTheme.colorScheme.onSurface
                             )
                         }
@@ -425,13 +426,13 @@ fun PresetImportExportScreen(
             },
             title = { 
                 Text(
-                    "Batch Export",
+                    stringResource(R.string.batch_export),
                     color = MaterialTheme.colorScheme.onSurface
                 ) 
             },
             text = { 
                 Text(
-                    "Export all $presetCount custom presets to a single file?",
+                    stringResource(R.string.batch_export_description, presetCount),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 ) 
             },
@@ -442,7 +443,7 @@ fun PresetImportExportScreen(
                     },
                     shape = MaterialTheme.shapes.medium
                 ) {
-                    Text("Export All")
+                    Text(stringResource(R.string.export_all))
                 }
             },
             dismissButton = {
@@ -450,7 +451,7 @@ fun PresetImportExportScreen(
                     onClick = { showBatchExport = false },
                     shape = MaterialTheme.shapes.medium
                 ) {
-                    Text("Cancel")
+                    Text(stringResource(R.string.cancel))
                 }
             },
             shape = MaterialTheme.shapes.extraLarge

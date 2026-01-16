@@ -281,7 +281,7 @@ private fun ModernEqualizerContent(
                     )
                     Column {
                         Text(
-                            text = "Band Mode Mismatch",
+                            text = stringResource(R.string.band_mode_mismatch),
                             style = MaterialTheme.typography.titleSmall,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onErrorContainer
@@ -478,7 +478,7 @@ private fun SlidersViewContent(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Frequency Response",
+                        text = stringResource(R.string.frequency_response),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -551,7 +551,7 @@ private fun SlidersViewContent(
                                     tint = MaterialTheme.colorScheme.onErrorContainer
                                 )
                                 Text(
-                                    text = "Locked",
+                                    text = stringResource(R.string.locked),
                                     style = MaterialTheme.typography.labelSmall,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onErrorContainer
@@ -702,7 +702,7 @@ private fun BandModeSelector(
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
-                    text = "Band Configuration",
+                    text = stringResource(R.string.band_configuration),
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onSurface
@@ -710,7 +710,7 @@ private fun BandModeSelector(
             }
             
             Text(
-                text = "Choose equalizer precision: more bands = finer control",
+                text = stringResource(R.string.choose_equalizer_precision),
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(bottom = 12.dp)

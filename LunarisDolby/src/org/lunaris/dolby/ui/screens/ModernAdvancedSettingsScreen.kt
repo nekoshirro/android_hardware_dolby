@@ -324,7 +324,7 @@ private fun ModernAdvancedSettingsContent(
                         )
                         Spacer(modifier = Modifier.width(12.dp))
                         Text(
-                            text = "Enable Dolby Atmos to access advanced settings",
+                            text = stringResource(R.string.dolby_adv_settings_footer),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSecondaryContainer
                         )

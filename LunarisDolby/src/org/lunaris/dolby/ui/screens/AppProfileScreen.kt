@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,7 +49,7 @@ fun AppProfileScreen(
             TopAppBar(
                 title = { 
                     Text(
-                        "Per-App Audio Profiles",
+                        stringResource(R.string.app_profiles_title),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
@@ -105,7 +106,7 @@ fun AppProfileScreen(
                     ) {
                         CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
                         Text(
-                            text = "Loading apps...",
+                            text = stringResource(R.string.app_profiles_loading),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -142,7 +143,7 @@ fun AppProfileScreen(
                                 onValueChange = { searchQuery = it },
                                 placeholder = { 
                                     Text(
-                                        "Search apps...",
+                                        stringResource(R.string.app_profiles_search_placeholder),
                                         color = MaterialTheme.colorScheme.onSurfaceVariant
                                     ) 
                                 },
@@ -191,7 +192,7 @@ fun AppProfileScreen(
                                     tint = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                                 Text(
-                                    text = "No apps found",
+                                    text = stringResource(R.string.app_profiles_no_apps_found),
                                     style = MaterialTheme.typography.bodyMedium,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -244,7 +245,7 @@ fun AppProfileScreen(
                             onClick = { viewModel.loadApps() },
                             shape = MaterialTheme.shapes.medium
                         ) {
-                            Text("Retry")
+                            Text(stringResource(R.string.app_profiles_retry))
                         }
                     }
                 }
@@ -341,7 +342,7 @@ private fun AppProfileItem(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Text(
-                            text = "Change",
+                            text = stringResource(R.string.app_profiles_change),
                             style = MaterialTheme.typography.labelLarge,
                             color = MaterialTheme.colorScheme.onSurface
                         )
@@ -367,7 +368,7 @@ private fun AppProfileItem(
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Text(
-                                    "Default",
+                                    stringResource(R.string.app_profiles_default),
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                                 if (app.assignedProfile == -1) {
