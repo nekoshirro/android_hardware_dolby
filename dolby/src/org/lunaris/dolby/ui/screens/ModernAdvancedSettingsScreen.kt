@@ -231,8 +231,14 @@ private fun ModernAdvancedSettingsContent(
                             }
                         }
                     }
-                    
-                    Spacer(modifier = Modifier.height(8.dp))
+                }
+            }
+            
+            item {
+                ModernSettingsCard(
+                    title = "Volume Leveler",
+                    icon = Icons.Default.VolumeDown
+                ) {
                     ModernSettingSwitch(
                         title = stringResource(R.string.dolby_volume_leveler),
                         subtitle = stringResource(R.string.dolby_volume_leveler_summary),
