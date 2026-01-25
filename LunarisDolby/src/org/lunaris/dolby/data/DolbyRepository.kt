@@ -822,6 +822,76 @@ class DolbyRepository(private val context: Context) : AutoCloseable {
         
         return result
     }
+
+    fun getMidEnhancerEnabled(profile: Int): Boolean {
+        val prefs = getProfilePrefs(profile)
+        return prefs.getBoolean(DolbyConstants.PREF_MID, false)
+    }
+
+    fun setMidEnhancerEnabled(profile: Int, enabled: Boolean) {
+        getProfilePrefs(profile).edit().putBoolean(DolbyConstants.PREF_MID, enabled).apply()
+    }
+
+    fun getMidLevel(profile: Int): Int {
+        val prefs = getProfilePrefs(profile)
+        return prefs.getInt(DolbyConstants.PREF_MID_LEVEL, 0)
+    }
+
+    fun setMidLevel(profile: Int, level: Int) {
+        if (isReleased) return
+        
+        DolbyConstants.dlog(TAG, "setMidLevel: profile=$profile level=$level")
+
+        if (level !in 0..100) {
+            DolbyConstants.dlog(TAG, "setMidLevel: invalid level $level")
+            throw IllegalArgumentException("Mid level must be between 0 and 100")
+        }
+
+        try {
+            val prefs = getProfilePrefs(profile)
+            val previousLevel = prefs.getInt(DolbyConstants.PREF_MID_LEVEL, 0)
+
+            prefs.edit().putInt(DolbyConstants.PREF_MID_LEVEL, level).apply()
+            setMidEnhancerEnabled(profile, level > 0)
+
+            checkEffect()
+            val currentGains = dolbyEffect.getDapParameter(DsParam.GEQ_BAND_GAINS, profile)
+            val modifiedGains = currentGains.copyOf()
+
+            if (previousLevel > 0) {
+                val previousGain = (previousLevel * MID_GAIN_MULTIPLIER).toInt()
+                for (i in 5..13) {
+                    if (i < modifiedGains.size) {
+                        modifiedGains[i] = (modifiedGains[i] - previousGain).coerceIn(-150, 150)
+                    }
+                }
+            }
+
+            if (level > 0) {
+                val midGain = (level * MID_GAIN_MULTIPLIER).toInt()
+                for (i in 5..13) {
+                    if (i < modifiedGains.size) {
+                        modifiedGains[i] = (modifiedGains[i] + midGain).coerceIn(-150, 150)
+                    }
+                }
+            }
+
+            dolbyEffect.setDapParameter(DsParam.GEQ_BAND_GAINS, modifiedGains, profile)
+            
+            val gainsString = modifiedGains.joinToString(",")
+            prefs.edit().putString(DolbyConstants.PREF_PRESET, gainsString).apply()
+            
+            DolbyConstants.dlog(TAG, "setMidLevel: success")
+        } catch (e: IllegalArgumentException) {
+            DolbyConstants.dlog(TAG, "setMidLevel: validation error - ${e.message}")
+            val prefs = getProfilePrefs(profile)
+            prefs.edit().putInt(DolbyConstants.PREF_MID_LEVEL, 0).apply()
+            throw e
+        } catch (e: Exception) {
+            DolbyConstants.dlog(TAG, "setMidLevel: unexpected error - ${e.message}")
+            throw e
+        }
+    }
     
     private fun release() {
         if (!isReleased) {
@@ -844,6 +914,7 @@ class DolbyRepository(private val context: Context) : AutoCloseable {
         private const val EFFECT_PRIORITY = 100
         
         private const val BASS_GAIN_MULTIPLIER = 1.4f
+        private const val MID_GAIN_MULTIPLIER = 1.3f
         private const val TREBLE_GAIN_MULTIPLIER = 1.5f
         
         private val ATTRIBUTES_MEDIA = AudioAttributes.Builder()
