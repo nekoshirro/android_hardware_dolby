@@ -60,10 +60,10 @@ fun FloatingNavToolbar(
                     bottom = FloatingToolbarDefaults.ScreenOffset
                 )
                 .shadow(
-                    elevation = 8.dp,
+                    elevation = 16.dp,
                     shape = MaterialTheme.shapes.extraLarge,
-                    ambientColor = Color.Black.copy(alpha = 0.1f),
-                    spotColor = Color.Black.copy(alpha = 0.15f)
+                    ambientColor = Color.Black.copy(alpha = 0.4f),
+                    spotColor = Color.Black.copy(alpha = 0.5f)
                 )
         ) {
             NavToolbarItem(

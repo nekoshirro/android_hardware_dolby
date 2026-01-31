@@ -171,6 +171,21 @@ fun ModernEqualizerScreen(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .fillMaxWidth()
+                    .height(130.dp)
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                MaterialTheme.colorScheme.surfaceContainer.copy(alpha = 0.95f)
+                            )
+                        )
+                    )
+            )
+            
+            Box(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .fillMaxWidth()
                     .padding(
                         start = cutoutInsets.calculateStartPadding(layoutDirection),
                         end = cutoutInsets.calculateEndPadding(layoutDirection),
