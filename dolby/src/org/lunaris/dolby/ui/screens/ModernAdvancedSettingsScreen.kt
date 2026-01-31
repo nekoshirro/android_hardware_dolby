@@ -386,12 +386,6 @@ private fun ModernAdvancedSettingsContent(
                 }
             }
         }
-
-        item {
-            AppProfileSettingsCard(
-                onManageClick = { navController.navigate("app_profiles") }
-            )
-        }
         
         item {
             Spacer(modifier = Modifier.height(70.dp))
