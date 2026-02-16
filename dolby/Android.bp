@@ -34,7 +34,10 @@ android_app {
         "kotlinx-coroutines-core",
     ],
 
-    required: ["preinstalled-packages-platform-dolby.xml"],
+    required: [
+        "preinstalled-packages-platform-dolby.xml",
+        "privapp-permissions-dolby.xml",
+    ],
 }
 
 prebuilt_etc {
