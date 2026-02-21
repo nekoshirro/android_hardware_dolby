@@ -168,7 +168,7 @@
     <string name="export_all">全部匯出</string>
 
     <!-- Dolby mid enhancer -->
-    <string name="dolby_mid_enhancer">中頻增強</string>
-    <string name="dolby_mid_level">中頻等級</string>
+    <string name="dolby_mid_enhancer">中音增強</string>
+    <string name="dolby_mid_level">中音等級</string>
     <string name="dolby_mid_enhancer_summary">增強中頻音訊，提升人聲與樂器的清晰度</string>
 </resources>
