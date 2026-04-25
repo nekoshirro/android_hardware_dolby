@@ -183,4 +183,12 @@
     <string name="dolby_mid_level">Уровень средних частот</string>
     <string name="dolby_mid_enhancer_summary">Улучшает средние частоты для более чёткого вокала и инструментов</string>
 
+    <!-- Per-device state memory -->
+    <string name="device_state_memory_title">Настройки для каждого устройства</string>
+    <string name="device_state_memory_summary">Сохранять настройки Dolby отдельно для наушников, динамиков и Bluetooth</string>
+    <string name="device_state_memory_conflict_toast">Профили приложений отключены — не работают вместе с настройками по устройствам</string>
+    <string name="device_state_memory_conflict_summary">⚠ Недоступно, пока включены настройки по устройствам</string>
+    <string name="app_profile_conflict_toast">Настройки по устройствам отключены — не работают вместе с профилями приложений</string>
+    <string name="app_profile_conflict_summary">⚠ Недоступно, пока включены профили приложений</string>
+    <string name="device_state_memory_section_title">Для разных устройств</string>
 </resources>
