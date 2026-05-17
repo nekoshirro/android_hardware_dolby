@@ -171,4 +171,13 @@
     <string name="dolby_mid_enhancer">Peningkat mid</string>
     <string name="dolby_mid_level">Tingkat mid</string>
     <string name="dolby_mid_enhancer_summary">Meningkatkan frekuensi menengah untuk vokal dan instrumen yang lebih jernih</string>
+
+     <!-- Per-device state memory -->
+    <string name="device_state_memory_title">Memori audio per perangkat</string>
+    <string name="device_state_memory_summary">Mengingat pengaturan Dolby untuk setiap perangkat audio (headphone, speaker, Bluetooth)</string>
+    <string name="device_state_memory_conflict_toast">Profil per aplikasi dinonaktifkan — tidak kompatibel dengan memori per perangkat</string>
+    <string name="device_state_memory_conflict_summary">⚠ Dinonaktifkan saat memori per perangkat aktif — terjadi konflik</string>
+    <string name="app_profile_conflict_toast">Memori per perangkat dinonaktifkan — tidak kompatibel dengan profil per aplikasi</string>
+    <string name="app_profile_conflict_summary">⚠ Dinonaktifkan saat profil per aplikasi aktif — terjadi konflik</string>
+    <string name="device_state_memory_section_title">Memori Perangkat Audio</string>
 </resources>
