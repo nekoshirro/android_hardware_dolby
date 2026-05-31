@@ -47,6 +47,7 @@
     <string name="dolby_dialogue_enhancer_dolby_strength">Siła wzmocnienia dialogów</string>
     <string name="dolby_notification_listener_label">Usługa Dolby Atmos</string>
     <string name="loading">Ładowanie...</string>
+    <string name="dolby_read_only">Tylko do odczytu</string>
 
     <!-- Dolby profiles -->
     <string name="dolby_profile_dynamic">Dynamiczny</string>
@@ -171,5 +172,13 @@
     <string name="dolby_mid_enhancer">Wzmocnienie średnich tonów</string>
     <string name="dolby_mid_level">Poziom średnich tonów</string>
     <string name="dolby_mid_enhancer_summary">Wzmacnia średnie częstotliwości dla wyraźniejszych wokali i instrumentów</string>
-</resources>
 
+    <!-- Per-device state memory -->
+    <string name="device_state_memory_title">Pamięć audio dla poszczególnych urządzeń</string>
+    <string name="device_state_memory_summary">Zapamiętuj ustawienia Dolby dla każdego urządzenia audio (słuchawki, głośniki, Bluetooth)</string>
+    <string name="device_state_memory_conflict_toast">Profile dla poszczególnych aplikacji wyłączone — niezgodne z pamięcią dla poszczególnych urządzeń</string>
+    <string name="device_state_memory_conflict_summary">⚠ Funkcja jest wyłączona, gdy aktywna jest pamięć dla poszczególnych urządzeń — występuje konflikt</string>
+    <string name="app_profile_conflict_toast">Wyłączono pamięć dla poszczególnych urządeń — niezgodne z profilami na aplikację</string>
+    <string name="app_profile_conflict_summary">⚠ Funkcja jest wyłączona, gdy aktywne są profile poszczególnych aplikacji — powodują one konflikt</string>
+    <string name="device_state_memory_section_title">Pamięć urządzenia audio</string>
+</resources>
