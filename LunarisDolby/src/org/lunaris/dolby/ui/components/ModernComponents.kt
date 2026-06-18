@@ -351,8 +351,16 @@ fun ModernSettingSlider(
 ) {
     val haptic = rememberHapticFeedback()
     val scope = rememberCoroutineScope()
+    var sliderValue by remember(value) { mutableFloatStateOf(value.toFloat()) }
     var lastHapticValue by remember { mutableIntStateOf(value) }
-    
+
+    LaunchedEffect(value) {
+        sliderValue = value.toFloat()
+        lastHapticValue = value
+    }
+
+    val displayValue = sliderValue.toInt()
+
     Column(modifier = modifier.fillMaxWidth()) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -371,7 +379,7 @@ fun ModernSettingSlider(
                 color = MaterialTheme.colorScheme.primaryContainer
             ) {
                 Text(
-                    text = valueLabel(value),
+                    text = valueLabel(displayValue),
                     style = MaterialTheme.typography.labelLarge,
                     fontWeight = FontWeight.SemiBold,
                     color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -383,7 +391,7 @@ fun ModernSettingSlider(
         Spacer(modifier = Modifier.height(8.dp))
         
         Slider(
-            value = value.toFloat(),
+            value = sliderValue,
             onValueChange = { newValue ->
                 val intValue = newValue.toInt()
                 if (intValue != lastHapticValue) {
@@ -392,6 +400,7 @@ fun ModernSettingSlider(
                     }
                     lastHapticValue = intValue
                 }
+                sliderValue = newValue
                 onValueChange(newValue)
             },
             valueRange = valueRange,

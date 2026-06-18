@@ -509,8 +509,14 @@ class DolbyRepository(private val context: Context) : AutoCloseable {
 
     fun getStereoWideningAmount(profile: Int): Int {
         if (!stereoWideningSupported) return 0
+        val prefs = getProfilePrefs(profile)
+        if (prefs.contains(DolbyConstants.PREF_STEREO_WIDENING)) {
+            return prefs.getInt(DolbyConstants.PREF_STEREO_WIDENING, 32)
+        }
         return try {
-            dolbyEffect.getDapParameterInt(DsParam.STEREO_WIDENING_AMOUNT, profile)
+            val amount = dolbyEffect.getDapParameterInt(DsParam.STEREO_WIDENING_AMOUNT, profile)
+            prefs.edit().putInt(DolbyConstants.PREF_STEREO_WIDENING, amount).apply()
+            amount
         } catch (e: Exception) {
             DolbyConstants.dlog(TAG, "Error getting stereo widening: ${e.message}")
             32
