@@ -38,6 +38,10 @@ android_app {
         "preinstalled-packages-platform-dolby.xml",
         "privapp-permissions-dolby.xml",
     ],
+
+    optimize: {
+        enabled: true,
+    },
 }
 
 prebuilt_etc {
