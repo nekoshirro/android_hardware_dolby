@@ -600,7 +600,7 @@ private fun ViewModeTile(
     Surface(
         onClick = {
             scope.launch {
-                haptic.performHaptic(HapticFeedbackHelper.HapticIntensity.DOUBLE_CLICK)
+                haptic.performHaptic(HapticFeedbackHelper.HapticIntensity.CLICK)
             }
             onClick()
         },
@@ -718,7 +718,7 @@ private fun BandModeSelector(
                         isSelected = currentMode == mode,
                         onClick = {
                             scope.launch {
-                                haptic.performHaptic(HapticFeedbackHelper.HapticIntensity.DOUBLE_CLICK)
+                                haptic.performHaptic(HapticFeedbackHelper.HapticIntensity.CLICK)
                             }
                             onModeChange(mode)
                         },
